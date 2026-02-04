@@ -1,6 +1,16 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* Dark theme prose for markdown content */
+.prose-invert {
+  --tw-prose-body: theme("colors.zinc.300");
+  --tw-prose-headings: theme("colors.zinc.100");
+  --tw-prose-links: theme("colors.rose.400");
+  --tw-prose-bold: theme("colors.zinc.100");
+  --tw-prose-code: theme("colors.zinc.300");
+  --tw-prose-pre-bg: theme("colors.zinc.800");
+}
+
 /* Accessibility: Skip to content link */
 .sr-only {
   position: absolute;

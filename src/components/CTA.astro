@@ -5,21 +5,27 @@ import { Icon } from "astro-icon/components";
 
 <section id="about" class="max-w-6xl mx-auto px-4 py-20">
   <ScrollReveal client:idle scale={true}>
-    <div class="bg-black rounded-2xl p-12 text-center text-white">
-      <h2 class="text-4xl font-bold mb-4">Ready to Get Started?</h2>
-      <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-        Start building your next project with this minimal and powerful starter
-        template.
+    <div class="bg-gradient-to-br from-zinc-800 to-zinc-900 rounded-2xl p-12 text-center border border-zinc-700">
+      <h2 class="text-4xl font-bold text-zinc-50 mb-4">Join Our Mission</h2>
+      <p class="text-xl text-zinc-400 mb-8 max-w-2xl mx-auto">
+        Every contribution—time, resources, or voice—helps us create a more inclusive world through education and connection.
       </p>
-      <a
-        href="https://github.com/jonnysmillie/astro-base"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 px-8 py-3 bg-white text-black rounded-lg hover:bg-gray-100 transition-colors font-medium"
-      >
-        <Icon name="tabler:download" class="w-5 h-5" aria-hidden="true" />
-        Download
-      </a>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/contact"
+          class="inline-flex items-center justify-center gap-2 px-8 py-3 bg-rose-500 text-white rounded-lg hover:bg-rose-600 transition-colors font-medium"
+        >
+          <Icon name="tabler:heart" class="w-5 h-5" aria-hidden="true" />
+          Get Involved
+        </a>
+        <a
+          href="/contact"
+          class="inline-flex items-center justify-center gap-2 px-8 py-3 bg-zinc-700 text-zinc-100 border border-zinc-600 rounded-lg hover:bg-zinc-600 transition-colors font-medium"
+        >
+          <Icon name="tabler:mail" class="w-5 h-5" aria-hidden="true" />
+          Contact Us
+        </a>
+      </div>
     </div>
   </ScrollReveal>
 </section>

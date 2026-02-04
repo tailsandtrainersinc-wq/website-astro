@@ -4,85 +4,70 @@ import { Icon } from "astro-icon/components";
 
 <footer
   id="contact"
-  class="w-full py-12 px-4 border-t border-gray-200 bg-white"
+  class="w-full py-12 px-4 border-t border-zinc-800 bg-zinc-900/50"
   role="contentinfo"
 >
   <div class="max-w-6xl mx-auto">
     <div class="grid md:grid-cols-3 gap-8 mb-8">
       <div>
-        <h2 class="text-lg font-semibold text-gray-900 mb-4">Astro Base</h2>
-        <p class="text-gray-600">
-          A basic minimal starter template built for Astro with React, Framer
-          Motion and Tailwind.
+        <h2 class="text-lg font-semibold text-zinc-50 mb-4">Tails and Trainers</h2>
+        <p class="text-zinc-400">
+          A 501(c)(3) non-profit supporting LGBTQ communities through education,
+          advocacy, and connection.
         </p>
       </div>
       <div>
-        <h2 class="text-lg font-semibold text-gray-900 mb-4">Links</h2>
+        <h2 class="text-lg font-semibold text-zinc-50 mb-4">Explore</h2>
         <ul class="space-y-2">
           <li>
             <a
               href="/features"
-              class="text-gray-600 hover:text-gray-900 transition-colors"
-              >Features</a
+              class="text-zinc-400 hover:text-rose-400 transition-colors"
+              >What We Do</a
             >
           </li>
           <li>
             <a
               href="/about"
-              class="text-gray-600 hover:text-gray-900 transition-colors"
+              class="text-zinc-400 hover:text-rose-400 transition-colors"
               >About</a
             >
           </li>
           <li>
             <a
               href="/contact"
-              class="text-gray-600 hover:text-gray-900 transition-colors"
+              class="text-zinc-400 hover:text-rose-400 transition-colors"
               >Contact</a
             >
           </li>
         </ul>
       </div>
       <div>
-        <h2 class="text-lg font-semibold text-gray-900 mb-4">Connect</h2>
+        <h2 class="text-lg font-semibold text-zinc-50 mb-4">Get Involved</h2>
         <ul class="space-y-2">
           <li>
             <a
-              href="https://github.com"
-              class="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Visit our GitHub (opens in new tab)"
+              href="/contact"
+              class="flex items-center gap-2 text-zinc-400 hover:text-rose-400 transition-colors"
             >
-              <Icon name="tabler:brand-github" class="w-5 h-5" aria-hidden="true" />
-              <span>GitHub</span></a
-            >
-          </li>
-          <li>
-            <a
-              href="https://twitter.com"
-              class="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Follow us on Twitter (opens in new tab)"
-            >
-              <Icon name="tabler:brand-twitter" class="w-5 h-5" aria-hidden="true" />
-              <span>Twitter</span></a
+              <Icon name="tabler:mail" class="w-5 h-5" aria-hidden="true" />
+              <span>Contact Us</span></a
             >
           </li>
           <li>
             <a
               href="/contact"
-              class="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+              class="flex items-center gap-2 text-zinc-400 hover:text-rose-400 transition-colors"
             >
-              <Icon name="tabler:mail" class="w-5 h-5" aria-hidden="true" />
-              <span>Email</span></a
+              <Icon name="tabler:heart" class="w-5 h-5" aria-hidden="true" />
+              <span>Volunteer</span></a
             >
           </li>
         </ul>
       </div>
     </div>
-    <div class="pt-8 border-t border-gray-200 text-center text-gray-600">
-      <p>&copy; {new Date().getFullYear()} Astro Base. All rights reserved.</p>
+    <div class="pt-8 border-t border-zinc-800 text-center text-zinc-500 text-sm">
+      <p>&copy; {new Date().getFullYear()} Tails and Trainers. A 501(c)(3) non-profit. All rights reserved.</p>
     </div>
   </div>
 </footer>
