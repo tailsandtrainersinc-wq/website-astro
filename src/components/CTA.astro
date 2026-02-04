@@ -1,14 +1,21 @@
 ---
+import { getCollection } from "astro:content";
 import ScrollReveal from "./ScrollReveal.tsx";
 import { Icon } from "astro-icon/components";
+
+const siteEntries = await getCollection("site");
+const site = siteEntries[0]?.data ?? {
+  ctaTitle: "Join Our Mission",
+  ctaBody: "Every contribution—time, resources, or voice—helps us create a more inclusive world through education and connection.",
+};
 ---
 
 <section id="about" class="max-w-6xl mx-auto px-4 py-20">
   <ScrollReveal client:idle scale={true}>
     <div class="bg-gradient-to-br from-zinc-800 to-zinc-900 rounded-2xl p-12 text-center border border-zinc-700">
-      <h2 class="text-4xl font-bold text-zinc-50 mb-4">Join Our Mission</h2>
+      <h2 class="text-4xl font-bold text-zinc-50 mb-4">{site.ctaTitle}</h2>
       <p class="text-xl text-zinc-400 mb-8 max-w-2xl mx-auto">
-        Every contribution—time, resources, or voice—helps us create a more inclusive world through education and connection.
+        {site.ctaBody}
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a

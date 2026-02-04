@@ -5,5 +5,9 @@ export const SITE = {
   url: "https://tailsandtrainers.org",
   author: "Tails and Trainers",
   ogImage: "/og-image.png",
+  // Form submission: use one of the following (Google Sheets is free, no signup).
+  // Web3Forms: get key from https://web3forms.com
   web3formsAccessKey: "",
+  // Google Sheets: deploy the script in docs/google-sheets-form-setup.md and paste the web app URL here.
+  googleSheetsScriptUrl: "",
 };

@@ -206,6 +206,26 @@ See `src/pages/example.mdx` for a complete example.
 - **/contact** - Contact form page
 - **/example** - MDX example page demonstrating markdown features
 
+## 📄 CMS (Content Collections)
+
+Content is managed via **Astro Content Collections** — no external CMS or API keys.
+
+- **Site copy** (hero, CTA, footer): edit `src/content/site/settings.md` (frontmatter).
+- **Features / mission pillars**: add or edit `.md` files in `src/content/features/` with `title`, `description`, `icon` (Tabler icon name, e.g. `tabler:school`), and optional `order`.
+
+Hero, Features, CTA, and Footer components read from these collections. Change the markdown and rebuild to update the site.
+
+## 📬 Contact form (Google Sheets or Web3Forms)
+
+Use **one** of these (configure in `src/config/site.mjs`):
+
+1. **Google Sheets** (free, no signup): submissions append as rows to a Google Sheet.  
+   Follow **`docs/google-sheets-form-setup.md`** to create the Sheet, add the Apps Script, deploy as web app, then set `googleSheetsScriptUrl` to the web app URL.
+
+2. **Web3Forms**: get an access key from [web3forms.com](https://web3forms.com) and set `web3formsAccessKey`.
+
+If both are set, **Google Sheets** is used. No extra npm packages are required for either option.
+
 ## 🔧 Configuration
 
 ### Astro Config (`astro.config.mjs`)

@@ -1,5 +1,12 @@
 ---
+import { getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
+import { SITE } from "../config/site.mjs";
+
+const siteEntries = await getCollection("site");
+const site = siteEntries[0]?.data ?? {
+  footerDescription: "A 501(c)(3) non-profit supporting LGBTQ communities through education, advocacy, and connection.",
+};
 ---
 
 <footer
@@ -10,10 +17,9 @@ import { Icon } from "astro-icon/components";
   <div class="max-w-6xl mx-auto">
     <div class="grid md:grid-cols-3 gap-8 mb-8">
       <div>
-        <h2 class="text-lg font-semibold text-zinc-50 mb-4">Tails and Trainers</h2>
+        <h2 class="text-lg font-semibold text-zinc-50 mb-4">{SITE.title}</h2>
         <p class="text-zinc-400">
-          A 501(c)(3) non-profit supporting LGBTQ communities through education,
-          advocacy, and connection.
+          {site.footerDescription}
         </p>
       </div>
       <div>
@@ -67,7 +73,7 @@ import { Icon } from "astro-icon/components";
       </div>
     </div>
     <div class="pt-8 border-t border-zinc-800 text-center text-zinc-500 text-sm">
-      <p>&copy; {new Date().getFullYear()} Tails and Trainers. A 501(c)(3) non-profit. All rights reserved.</p>
+      <p>&copy; {new Date().getFullYear()} {SITE.title}. A 501(c)(3) non-profit. All rights reserved.</p>
     </div>
   </div>
 </footer>
