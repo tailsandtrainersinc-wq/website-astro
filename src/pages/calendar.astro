@@ -1,0 +1,38 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import EventCalendar from "../components/EventCalendar.tsx";
+import { SITE } from "../config/site.mjs";
+
+const entries = await getCollection("events");
+const events = entries.map((entry) => ({
+  id: entry.id,
+  title: entry.data.title,
+  description: entry.data.description,
+  date: entry.data.date,
+  startTime: entry.data.startTime ?? undefined,
+  endTime: entry.data.endTime ?? undefined,
+  location: entry.data.location ?? undefined,
+  body: entry.body ?? undefined,
+}));
+---
+
+<Layout
+  title={`Calendar | ${SITE.title}`}
+  description="Upcoming events from Tails and Trainers. Workshops, meetups, and more."
+  canonicalURL={`${SITE.url}/calendar`}
+>
+  <Header />
+  <main id="main-content" role="main">
+    <section class="max-w-5xl mx-auto px-4 py-16">
+      <h1 class="text-4xl font-bold text-zinc-50 mb-2">Events</h1>
+      <p class="text-zinc-400 mb-10">
+        Click an event on the calendar to see details. All events are open unless noted.
+      </p>
+      <EventCalendar client:load events={events} />
+    </section>
+  </main>
+  <Footer />
+</Layout>
