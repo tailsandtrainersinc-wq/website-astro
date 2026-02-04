@@ -25,7 +25,23 @@ const features = defineCollection({
   }),
 });
 
+// Events for calendar — add or edit .md files in src/content/events
+const events = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/events" }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    date: z.union([z.string(), z.date()]).transform((v) =>
+      typeof v === "string" ? v : v.toISOString().slice(0, 10)
+    ),
+    startTime: z.string().optional(),
+    endTime: z.string().optional(),
+    location: z.string().optional(),
+  }),
+});
+
 export const collections = {
   site,
   features,
+  events,
 };
