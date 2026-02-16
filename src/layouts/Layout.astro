@@ -54,21 +54,22 @@ const robotsContent = [
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		
-		<!-- Resource Hints -->
+
+		<!-- Fonts: Instrument Serif (display) + Inter (body) -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-		
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
+
 		<!-- Preload Critical Resources -->
 		<link rel="preload" href="/favicon.svg" as="image" type="image/svg+xml" />
-		
+
 		<!-- Primary Meta Tags -->
 		<title>{title}</title>
 		<meta name="title" content={title} />
 		<meta name="description" content={description} />
 		<meta name="robots" content={robotsContent} />
 		<link rel="canonical" href={siteURL.href} />
-		
+
 		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content={ogType} />
 		<meta property="og:url" content={siteURL.href} />
@@ -76,7 +77,7 @@ const robotsContent = [
 		<meta property="og:description" content={ogDescription} />
 		<meta property="og:image" content={fullOgImage} />
 		<meta property="og:site_name" content={SITE.title} />
-		
+
 		<!-- Twitter -->
 		<meta name="twitter:card" content={twitterCard} />
 		<meta name="twitter:url" content={siteURL.href} />
@@ -84,13 +85,60 @@ const robotsContent = [
 		<meta name="twitter:description" content={twitterDescription} />
 		<meta name="twitter:image" content={fullTwitterImage} />
 	</head>
-	<body class="min-h-screen bg-zinc-950 text-zinc-100 antialiased">
+	<body class="min-h-screen antialiased">
+		<!-- Aurora Background -->
+		<div class="aurora-container" aria-hidden="true">
+			<div class="aurora-blob aurora-blob-1"></div>
+			<div class="aurora-blob aurora-blob-2"></div>
+			<div class="aurora-blob aurora-blob-3"></div>
+			<div class="aurora-blob aurora-blob-4"></div>
+		</div>
+
+		<!-- Skip to content -->
 		<a
 			href="#main-content"
-			class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-rose-500 focus:text-white focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-950 focus:ring-rose-500"
+			class="sr-only"
 		>
 			Skip to main content
 		</a>
+
 		<slot />
+
+		<!-- Cursor Glow Tracking -->
+		<script>
+			if (window.matchMedia('(pointer: fine)').matches) {
+				const root = document.documentElement;
+				let ticking = false;
+				document.addEventListener('mousemove', (e) => {
+					if (!ticking) {
+						requestAnimationFrame(() => {
+							root.style.setProperty('--cursor-x', e.clientX + 'px');
+							root.style.setProperty('--cursor-y', e.clientY + 'px');
+							ticking = false;
+						});
+						ticking = true;
+					}
+				});
+			}
+		</script>
+
+		<!-- Aurora Scroll Intensity -->
+		<script>
+			const aurora = document.querySelector('.aurora-container');
+			if (aurora) {
+				let ticking = false;
+				window.addEventListener('scroll', () => {
+					if (!ticking) {
+						requestAnimationFrame(() => {
+							const scrollRatio = Math.min(window.scrollY / (window.innerHeight * 2), 1);
+							const intensity = 0.4 - (scrollRatio * 0.25);
+							document.documentElement.style.setProperty('--aurora-intensity', String(intensity));
+							ticking = false;
+						});
+						ticking = true;
+					}
+				});
+			}
+		</script>
 	</body>
 </html>

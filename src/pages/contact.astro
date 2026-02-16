@@ -14,17 +14,22 @@ import { SITE } from "../config/site.mjs";
 >
   <Header />
   <main id="main-content" role="main">
-    <section class="max-w-2xl mx-auto px-4 py-20">
-      <ScrollReveal client:idle>
-        <h1 class="text-5xl font-bold text-zinc-50 mb-4">Contact</h1>
+    <section class="max-w-2xl mx-auto px-6 md:px-12 pt-32" style="padding-bottom: var(--space-section);">
+      <ScrollReveal client:idle mode="emerge">
+        <h1
+          class="mb-4 leading-tight"
+          style="font-family: var(--font-serif); font-size: var(--text-display); color: var(--text-primary);"
+        >
+          Contact
+        </h1>
       </ScrollReveal>
-      <ScrollReveal client:idle delay={0.2}>
-        <p class="text-xl text-zinc-400 mb-12">
-          Get in touch with us. Whether you want to volunteer, partner, donate, or just say hello—we'd love to hear from you.
+      <ScrollReveal client:idle delay={0.2} mode="emerge">
+        <p class="leading-relaxed mb-10" style="color: var(--text-secondary); font-size: var(--text-subhead);">
+          Whether you want to volunteer, partner, donate, or just say hello—we'd love to hear from you.
         </p>
       </ScrollReveal>
-      
-      <ScrollReveal client:idle delay={0.3}>
+
+      <ScrollReveal client:idle delay={0.3} mode="emerge">
         <ContactForm />
       </ScrollReveal>
     </section>

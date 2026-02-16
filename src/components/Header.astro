@@ -1,159 +1,272 @@
 ---
 import { Icon } from "astro-icon/components";
+
+const currentPath = Astro.url.pathname;
+const isActive = (path: string) => currentPath === path || currentPath.startsWith(path + '/');
 ---
 
 <header
-  class="w-full py-4 px-4 border-b border-zinc-800 bg-zinc-950/90 backdrop-blur-sm sticky top-0 z-50"
+  class="fixed top-0 left-0 right-0 z-50 px-4 pt-4"
   role="banner"
+  id="site-header"
 >
+  <!-- Floating pill nav -->
   <nav
-    class="max-w-6xl mx-auto flex items-center justify-between"
+    class="header-pill max-w-3xl mx-auto flex items-center justify-between px-6 py-3 rounded-full border transition-all duration-500"
+    style="background: oklch(0.15 0.02 280 / 0.7); backdrop-filter: blur(20px) saturate(1.4); -webkit-backdrop-filter: blur(20px) saturate(1.4); border-color: oklch(0.3 0.03 290 / 0.3); box-shadow: 0 0 0 1px oklch(0.2 0.02 280 / 0.5), 0 8px 32px oklch(0.1 0.01 280 / 0.4);"
     aria-label="Main navigation"
   >
+    <!-- Logo -->
     <a
       href="/"
-      class="text-2xl font-bold text-zinc-50 hover:text-rose-400 transition-colors"
+      class="text-lg font-semibold tracking-tight transition-colors whitespace-nowrap"
+      style="color: var(--text-primary); font-family: var(--font-serif);"
       aria-label="Tails and Trainers - Home"
     >
-      Tails and Trainers
+      T&T
     </a>
-    
+
+    <!-- Desktop navigation -->
+    <ul class="hidden md:flex items-center gap-8" role="list">
+      <li>
+        <a
+          href="/features"
+          class="nav-link text-sm font-medium"
+          aria-current={isActive('/features') ? 'page' : undefined}
+        >
+          What We Do
+        </a>
+      </li>
+      <li>
+        <a
+          href="/calendar"
+          class="nav-link text-sm font-medium"
+          aria-current={isActive('/calendar') ? 'page' : undefined}
+        >
+          Calendar
+        </a>
+      </li>
+      <li>
+        <a
+          href="/about"
+          class="nav-link text-sm font-medium"
+          aria-current={isActive('/about') ? 'page' : undefined}
+        >
+          About
+        </a>
+      </li>
+    </ul>
+
+    <!-- Desktop CTA -->
+    <a
+      href="/contact"
+      class="hidden md:inline-flex items-center gap-1.5 px-5 py-2 text-sm font-semibold rounded-full transition-all duration-300"
+      style="background: var(--accent-warm); color: var(--surface-deep);"
+      aria-current={isActive('/contact') ? 'page' : undefined}
+    >
+      Contact
+    </a>
+
     <!-- Mobile menu button -->
     <button
       type="button"
-      class="md:hidden p-2 text-zinc-400 hover:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-zinc-950 rounded-lg"
+      class="md:hidden p-2 rounded-full transition-colors"
+      style="color: var(--text-secondary);"
       aria-label="Toggle menu"
       aria-expanded="false"
       aria-controls="mobile-menu"
       id="mobile-menu-button"
     >
-      <Icon name="tabler:menu-2" class="w-6 h-6" aria-hidden="true" />
+      <Icon name="tabler:menu-2" class="w-5 h-5" aria-hidden="true" />
     </button>
-
-    <!-- Desktop navigation -->
-    <ul class="hidden md:flex items-center gap-6" role="list">
-      <li>
-        <a
-          href="/features"
-          class="text-zinc-400 hover:text-zinc-100 transition-colors"
-          aria-current={Astro.url.pathname === '/features' ? 'page' : undefined}
-        >
-          What We Do
-        </a>
-      </li>
-      <li>
-        <a
-          href="/calendar"
-          class="text-zinc-400 hover:text-zinc-100 transition-colors"
-          aria-current={Astro.url.pathname === '/calendar' ? 'page' : undefined}
-        >
-          Calendar
-        </a>
-      </li>
-      <li>
-        <a
-          href="/about"
-          class="text-zinc-400 hover:text-zinc-100 transition-colors"
-          aria-current={Astro.url.pathname === '/about' ? 'page' : undefined}
-        >
-          About
-        </a>
-      </li>
-      <li>
-        <a
-          href="/contact"
-          class="px-4 py-2 bg-rose-500 text-white rounded-lg hover:bg-rose-600 transition-colors"
-          aria-current={Astro.url.pathname === '/contact' ? 'page' : undefined}
-        >
-          Contact
-        </a>
-      </li>
-    </ul>
   </nav>
-
-  <!-- Mobile menu -->
-  <div
-    id="mobile-menu"
-    class="hidden md:hidden border-t border-zinc-800 bg-zinc-900/95"
-    role="menu"
-    aria-labelledby="mobile-menu-button"
-  >
-    <ul class="flex flex-col py-4" role="list">
-      <li>
-        <a
-          href="/features"
-          class="block px-4 py-3 text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100 transition-colors"
-          role="menuitem"
-          aria-current={Astro.url.pathname === '/features' ? 'page' : undefined}
-        >
-          What We Do
-        </a>
-      </li>
-      <li>
-        <a
-          href="/calendar"
-          class="block px-4 py-3 text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100 transition-colors"
-          role="menuitem"
-          aria-current={Astro.url.pathname === '/calendar' ? 'page' : undefined}
-        >
-          Calendar
-        </a>
-      </li>
-      <li>
-        <a
-          href="/about"
-          class="block px-4 py-3 text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100 transition-colors"
-          role="menuitem"
-          aria-current={Astro.url.pathname === '/about' ? 'page' : undefined}
-        >
-          About
-        </a>
-      </li>
-      <li>
-        <a
-          href="/contact"
-          class="block px-4 py-3 text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100 transition-colors"
-          role="menuitem"
-          aria-current={Astro.url.pathname === '/contact' ? 'page' : undefined}
-        >
-          Contact
-        </a>
-      </li>
-    </ul>
-  </div>
 </header>
 
+<!-- Mobile menu overlay -->
+<div
+  id="mobile-menu"
+  class="fixed inset-0 z-40 hidden md:hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Mobile navigation"
+>
+  <!-- Backdrop -->
+  <div
+    class="mobile-backdrop absolute inset-0"
+    style="background: oklch(0.08 0.02 280 / 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);"
+  ></div>
+
+  <!-- Menu panel -->
+  <div class="mobile-panel relative flex flex-col items-center justify-center h-full gap-2 px-8">
+    <ul class="flex flex-col items-center gap-1 w-full max-w-sm" role="list">
+      <li class="mobile-link w-full" style="--delay: 0;">
+        <a
+          href="/features"
+          class="block text-center text-xl font-medium py-4 px-6 rounded-2xl transition-all duration-300"
+          style="color: var(--text-primary); font-family: var(--font-serif);"
+          role="menuitem"
+          aria-current={isActive('/features') ? 'page' : undefined}
+        >
+          What We Do
+        </a>
+      </li>
+      <li class="mobile-link w-full" style="--delay: 1;">
+        <a
+          href="/calendar"
+          class="block text-center text-xl font-medium py-4 px-6 rounded-2xl transition-all duration-300"
+          style="color: var(--text-primary); font-family: var(--font-serif);"
+          role="menuitem"
+          aria-current={isActive('/calendar') ? 'page' : undefined}
+        >
+          Calendar
+        </a>
+      </li>
+      <li class="mobile-link w-full" style="--delay: 2;">
+        <a
+          href="/about"
+          class="block text-center text-xl font-medium py-4 px-6 rounded-2xl transition-all duration-300"
+          style="color: var(--text-primary); font-family: var(--font-serif);"
+          role="menuitem"
+          aria-current={isActive('/about') ? 'page' : undefined}
+        >
+          About
+        </a>
+      </li>
+      <li class="mobile-link w-full" style="--delay: 3;">
+        <a
+          href="/contact"
+          class="block text-center text-lg font-semibold py-4 px-6 mt-4 rounded-full transition-all duration-300"
+          style="background: var(--accent-warm); color: var(--surface-deep);"
+          role="menuitem"
+          aria-current={isActive('/contact') ? 'page' : undefined}
+        >
+          Get In Touch
+        </a>
+      </li>
+    </ul>
+
+    <!-- Close button -->
+    <button
+      type="button"
+      class="absolute top-6 right-6 p-3 rounded-full transition-colors"
+      style="color: var(--text-secondary);"
+      id="mobile-menu-close"
+      aria-label="Close menu"
+    >
+      <Icon name="tabler:x" class="w-6 h-6" aria-hidden="true" />
+    </button>
+  </div>
+</div>
+
+<style>
+  /* Scroll-aware header */
+  .header-pill {
+    transition: background 0.5s, border-color 0.5s, box-shadow 0.5s;
+  }
+
+  :global(.header-scrolled) .header-pill {
+    background: oklch(0.13 0.02 280 / 0.92) !important;
+    border-color: oklch(0.35 0.03 290 / 0.4) !important;
+    box-shadow: 0 0 0 1px oklch(0.2 0.02 280 / 0.6), 0 12px 40px oklch(0.08 0.01 280 / 0.5) !important;
+  }
+
+  /* Mobile menu animations */
+  .mobile-backdrop {
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .mobile-link {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  #mobile-menu.menu-open .mobile-backdrop {
+    opacity: 1;
+  }
+
+  #mobile-menu.menu-open .mobile-link {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: calc(var(--delay) * 0.08s + 0.15s);
+  }
+
+  /* Hover states for mobile links */
+  .mobile-link a:active {
+    background: oklch(0.25 0.03 290 / 0.5);
+  }
+
+  /* Active page glow on mobile */
+  .mobile-link a[aria-current="page"] {
+    color: var(--accent-warm) !important;
+  }
+</style>
+
 <script>
-  // Mobile menu toggle functionality
+  const header = document.getElementById('site-header');
   const menuButton = document.getElementById('mobile-menu-button');
+  const menuClose = document.getElementById('mobile-menu-close');
   const mobileMenu = document.getElementById('mobile-menu');
-  
-  if (menuButton && mobileMenu) {
-    menuButton.addEventListener('click', () => {
-      const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
-      menuButton.setAttribute('aria-expanded', String(!isExpanded));
-      mobileMenu.classList.toggle('hidden');
-    });
 
-    // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-      if (
-        !menuButton.contains(e.target as Node) &&
-        !mobileMenu.contains(e.target as Node) &&
-        !mobileMenu.classList.contains('hidden')
-      ) {
-        menuButton.setAttribute('aria-expanded', 'false');
-        mobileMenu.classList.add('hidden');
-      }
-    });
-
-    // Close menu on escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
-        menuButton.setAttribute('aria-expanded', 'false');
-        mobileMenu.classList.add('hidden');
-        menuButton.focus();
+  // Scroll awareness
+  if (header) {
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          if (window.scrollY > 80) {
+            document.body.classList.add('header-scrolled');
+          } else {
+            document.body.classList.remove('header-scrolled');
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     });
   }
+
+  // Mobile menu toggle
+  function openMenu() {
+    if (mobileMenu && menuButton) {
+      mobileMenu.classList.remove('hidden');
+      // Trigger reflow before adding open class for animation
+      mobileMenu.offsetHeight;
+      mobileMenu.classList.add('menu-open');
+      menuButton.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeMenu() {
+    if (mobileMenu && menuButton) {
+      mobileMenu.classList.remove('menu-open');
+      menuButton.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      setTimeout(() => {
+        mobileMenu.classList.add('hidden');
+      }, 400);
+    }
+  }
+
+  menuButton?.addEventListener('click', openMenu);
+  menuClose?.addEventListener('click', closeMenu);
+
+  // Close on backdrop click
+  mobileMenu?.querySelector('.mobile-backdrop')?.addEventListener('click', closeMenu);
+
+  // Close on escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu && !mobileMenu.classList.contains('hidden')) {
+      closeMenu();
+      menuButton?.focus();
+    }
+  });
+
+  // Close on link click
+  mobileMenu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', closeMenu);
+  });
 </script>

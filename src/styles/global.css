@@ -1,35 +1,408 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-/* Dark theme prose for markdown content */
-.prose-invert {
-  --tw-prose-body: theme("colors.zinc.300");
-  --tw-prose-headings: theme("colors.zinc.100");
-  --tw-prose-links: theme("colors.rose.400");
-  --tw-prose-bold: theme("colors.zinc.100");
-  --tw-prose-code: theme("colors.zinc.300");
-  --tw-prose-pre-bg: theme("colors.zinc.800");
-  --tw-prose-quotes: theme("colors.zinc.400");
-  --tw-prose-quote-borders: theme("colors.rose.500/30");
-  --tw-prose-counters: theme("colors.zinc.500");
-  --tw-prose-bullets: theme("colors.zinc.600");
-  --tw-prose-hr: theme("colors.zinc.800");
+/* ============================================
+   Design System: "The Threshold"
+   ============================================ */
+
+:root {
+  /* Surface colors — warm-shifted, plum undertones */
+  --surface-deep: oklch(0.13 0.02 280);
+  --surface-mid: oklch(0.17 0.025 290);
+  --surface-raised: oklch(0.22 0.03 300);
+  --surface-glow: oklch(0.28 0.04 310);
+
+  /* Text colors — warm off-whites and grays */
+  --text-primary: oklch(0.95 0.01 80);
+  --text-secondary: oklch(0.72 0.02 70);
+  --text-tertiary: oklch(0.52 0.03 60);
+
+  /* Accent colors */
+  --accent-warm: oklch(0.72 0.18 25);
+  --accent-hot: oklch(0.68 0.22 15);
+  --accent-cool: oklch(0.70 0.12 280);
+  --accent-glow: oklch(0.80 0.15 55);
+
+  /* Aurora gradient stops */
+  --aurora-1: oklch(0.20 0.08 320);
+  --aurora-2: oklch(0.18 0.06 270);
+  --aurora-3: oklch(0.22 0.07 20);
+  --aurora-4: oklch(0.16 0.05 200);
+  --aurora-intensity: 0.4;
+
+  /* Cursor position (set by JS) */
+  --cursor-x: 50%;
+  --cursor-y: 50%;
+
+  /* Typography */
+  --font-serif: "Instrument Serif", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --text-hero: clamp(3.5rem, 8vw + 1rem, 9rem);
+  --text-display: clamp(2.5rem, 5vw + 1rem, 6rem);
+  --text-heading: clamp(1.75rem, 3vw + 0.5rem, 3.5rem);
+  --text-subhead: clamp(1.25rem, 2vw + 0.25rem, 2rem);
+  --text-body: clamp(1rem, 0.5vw + 0.875rem, 1.125rem);
+
+  /* Spacing */
+  --space-section: clamp(4rem, 8vh, 10rem);
 }
 
-/* Smooth scrolling */
+/* ============================================
+   Base Styles
+   ============================================ */
+
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Better selection color */
-::selection {
-  background: theme("colors.rose.500/30");
-  color: theme("colors.zinc.50");
+body {
+  font-family: var(--font-sans);
+  background: var(--surface-deep);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
 }
 
-/* Accessibility: Skip to content link */
+::selection {
+  background: oklch(0.72 0.18 25 / 0.3);
+  color: var(--text-primary);
+}
+
+/* ============================================
+   Atmosphere: Film Grain Overlay
+   ============================================ */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  mix-blend-mode: overlay;
+}
+
+/* ============================================
+   Atmosphere: Vignette
+   ============================================ */
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 40%, var(--surface-deep) 100%);
+  opacity: 0.5;
+}
+
+/* ============================================
+   Atmosphere: Aurora Background
+   ============================================ */
+
+.aurora-container {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.aurora-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  mix-blend-mode: screen;
+  opacity: var(--aurora-intensity);
+  will-change: transform;
+}
+
+.aurora-blob-1 {
+  width: 60vw;
+  height: 60vw;
+  top: -20%;
+  left: -10%;
+  background: radial-gradient(circle, var(--aurora-1), transparent 70%);
+  animation: aurora-drift-1 25s ease-in-out infinite;
+}
+
+.aurora-blob-2 {
+  width: 50vw;
+  height: 50vw;
+  top: 30%;
+  right: -15%;
+  background: radial-gradient(circle, var(--aurora-2), transparent 70%);
+  animation: aurora-drift-2 33s ease-in-out infinite;
+}
+
+.aurora-blob-3 {
+  width: 55vw;
+  height: 55vw;
+  bottom: -10%;
+  left: 20%;
+  background: radial-gradient(circle, var(--aurora-3), transparent 70%);
+  animation: aurora-drift-3 41s ease-in-out infinite;
+}
+
+.aurora-blob-4 {
+  width: 45vw;
+  height: 45vw;
+  top: 10%;
+  left: 40%;
+  background: radial-gradient(circle, var(--aurora-4), transparent 70%);
+  animation: aurora-drift-4 29s ease-in-out infinite;
+}
+
+@keyframes aurora-drift-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(10%, -8%) scale(1.1); }
+  66% { transform: translate(-8%, 12%) scale(0.95); }
+}
+
+@keyframes aurora-drift-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-12%, 6%) scale(1.05); }
+  66% { transform: translate(8%, -10%) scale(1.1); }
+}
+
+@keyframes aurora-drift-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(6%, 10%) scale(0.9); }
+  66% { transform: translate(-10%, -6%) scale(1.05); }
+}
+
+@keyframes aurora-drift-4 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-8%, -12%) scale(1.1); }
+  66% { transform: translate(12%, 8%) scale(0.95); }
+}
+
+/* ============================================
+   Cursor Reactive Glow
+   ============================================ */
+
+.cursor-reactive {
+  position: relative;
+}
+
+.cursor-reactive::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    400px circle at var(--cursor-x) var(--cursor-y),
+    oklch(0.72 0.18 25 / 0.06),
+    transparent
+  );
+  pointer-events: none;
+  z-index: 0;
+  transition: opacity 0.3s;
+  opacity: 0;
+}
+
+.cursor-reactive:hover::before {
+  opacity: 1;
+}
+
+/* ============================================
+   Button Styles
+   ============================================ */
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  background: linear-gradient(135deg, var(--accent-warm), var(--accent-hot));
+  color: var(--surface-deep);
+  font-weight: 600;
+  border-radius: 9999px;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px oklch(0.72 0.18 25 / 0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  background: var(--surface-raised);
+  color: var(--text-primary);
+  font-weight: 500;
+  border-radius: 9999px;
+  border: 1px solid oklch(0.30 0.03 290 / 0.5);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background: var(--surface-glow);
+  border-color: oklch(0.40 0.04 290 / 0.5);
+  transform: translateY(-2px);
+}
+
+/* ============================================
+   Navigation Link Animation
+   ============================================ */
+
+.nav-link {
+  position: relative;
+  color: var(--text-secondary);
+  transition: color 0.3s;
+  text-decoration: none;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--accent-warm);
+  border-radius: 1px;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateX(-50%);
+}
+
+.nav-link:hover {
+  color: var(--text-primary);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link[aria-current="page"] {
+  color: var(--accent-warm);
+}
+
+.nav-link[aria-current="page"]::after {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  bottom: -8px;
+  background: var(--accent-warm);
+}
+
+/* ============================================
+   Form Field Styles
+   ============================================ */
+
+.field-underline {
+  border: none;
+  border-bottom: 2px solid var(--text-tertiary);
+  border-radius: 0;
+  background: transparent;
+  padding: 0.75rem 0;
+  color: var(--text-primary);
+  font-size: var(--text-body);
+  width: 100%;
+  transition: border-color 0.3s;
+}
+
+.field-underline:focus {
+  border-bottom-color: var(--accent-warm);
+  outline: none;
+  box-shadow: 0 2px 0 0 var(--accent-warm);
+}
+
+.field-underline::placeholder {
+  color: transparent;
+}
+
+/* Floating label pattern */
+.field-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.field-label {
+  position: absolute;
+  left: 0;
+  top: 0.75rem;
+  color: var(--text-tertiary);
+  font-size: var(--text-body);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  transform-origin: left;
+}
+
+.field-underline:focus ~ .field-label,
+.field-underline:not(:placeholder-shown) ~ .field-label {
+  top: -0.75rem;
+  font-size: 0.75rem;
+  color: var(--accent-warm);
+}
+
+/* ============================================
+   Heartbeat Glow Animation
+   ============================================ */
+
+.heartbeat-glow {
+  animation: heartbeat-glow 3s ease-in-out infinite;
+}
+
+@keyframes heartbeat-glow {
+  0%, 100% { box-shadow: 0 0 20px oklch(0.72 0.18 25 / 0.15); }
+  50% { box-shadow: 0 0 40px oklch(0.72 0.18 25 / 0.3); }
+}
+
+/* ============================================
+   Scroll Indicator
+   ============================================ */
+
+.scroll-hint {
+  animation: scroll-hint 2s ease-in-out infinite;
+}
+
+@keyframes scroll-hint {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(8px); opacity: 1; }
+}
+
+/* ============================================
+   Prose (Markdown Content) — Dark Theme
+   ============================================ */
+
+.prose-invert {
+  --tw-prose-body: var(--text-secondary);
+  --tw-prose-headings: var(--text-primary);
+  --tw-prose-links: var(--accent-warm);
+  --tw-prose-bold: var(--text-primary);
+  --tw-prose-code: var(--text-secondary);
+  --tw-prose-pre-bg: var(--surface-raised);
+  --tw-prose-quotes: var(--text-secondary);
+  --tw-prose-quote-borders: oklch(0.72 0.18 25 / 0.3);
+  --tw-prose-counters: var(--text-tertiary);
+  --tw-prose-bullets: var(--text-tertiary);
+  --tw-prose-hr: oklch(0.25 0.02 280 / 0.5);
+}
+
+/* ============================================
+   Skip to Content (Accessibility)
+   ============================================ */
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -51,9 +424,18 @@ html {
   overflow: visible;
   clip: auto;
   white-space: normal;
+  z-index: 10000;
+  background: var(--accent-warm);
+  color: var(--surface-deep);
+  border-radius: 0.5rem;
+  top: 1rem;
+  left: 1rem;
 }
 
-/* Line-clamp utility */
+/* ============================================
+   Utilities
+   ============================================ */
+
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -61,7 +443,37 @@ html {
   overflow: hidden;
 }
 
-/* TipTap WYSIWYG editor */
+/* ============================================
+   Reduced Motion
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    display: none;
+  }
+
+  .aurora-blob {
+    animation: none !important;
+  }
+
+  .scroll-hint {
+    animation: none !important;
+  }
+
+  .heartbeat-glow {
+    animation: none !important;
+  }
+
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================
+   TipTap Admin Editor (unchanged)
+   ============================================ */
+
 .tiptap {
   outline: none;
   min-height: 180px;
@@ -70,7 +482,7 @@ html {
 .tiptap p.is-editor-empty:first-child::before {
   content: "Start writing...";
   float: left;
-  color: theme("colors.zinc.500");
+  color: var(--text-tertiary);
   pointer-events: none;
   height: 0;
 }

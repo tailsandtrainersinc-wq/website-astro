@@ -13,41 +13,117 @@ import { SITE } from "../config/site.mjs";
 >
   <Header />
   <main id="main-content" role="main">
-    <section class="max-w-4xl mx-auto px-4 py-20">
-      <ScrollReveal client:idle>
-        <h1 class="text-5xl font-bold text-zinc-50 mb-4">About Tails and Trainers</h1>
+    <section class="max-w-4xl mx-auto px-6 md:px-12 pt-32 pb-12">
+      {/* Decorative watermark */}
+      <div
+        class="absolute right-0 top-24 select-none pointer-events-none hidden md:block"
+        style="font-family: var(--font-serif); font-size: clamp(10rem, 25vw, 20rem); color: var(--accent-warm); opacity: 0.04; line-height: 0.8;"
+        aria-hidden="true"
+      >
+        &
+      </div>
+
+      <ScrollReveal client:idle mode="emerge">
+        <h1
+          class="mb-6 leading-tight"
+          style="font-family: var(--font-serif); font-size: var(--text-display); color: var(--text-primary);"
+        >
+          About Tails and Trainers
+        </h1>
       </ScrollReveal>
-      <ScrollReveal client:load delay={0.1}>
-        <p class="text-xl text-zinc-400 mb-12">
-          Tails and Trainers is a 501(c)(3) non-profit dedicated to supporting LGBTQ communities through education, advocacy, and connection. We believe everyone deserves to learn, grow, and belong in safe, affirming spaces.
+      <ScrollReveal client:load delay={0.1} mode="emerge">
+        <p class="leading-relaxed mb-16" style="color: var(--text-secondary); font-size: var(--text-subhead); max-width: 36rem;">
+          A 501(c)(3) non-profit dedicated to supporting LGBTQ communities through education, advocacy, and connection. We believe everyone deserves to learn, grow, and belong in safe, affirming spaces.
         </p>
       </ScrollReveal>
+    </section>
 
-      <div class="prose prose-invert prose-lg max-w-none">
-        <ScrollReveal client:load delay={0.2}>
-          <h2 class="text-zinc-50">Our Mission</h2>
-          <p class="text-zinc-400">
-            We create and support programs that educate the public, build community, and advocate for LGBTQ visibility and rights. From workshops and resources to partnerships and outreach, we work to make the world more inclusive—one connection at a time.
-          </p>
-        </ScrollReveal>
+    {/* Mission section */}
+    <section class="max-w-4xl mx-auto px-6 md:px-12" style="padding-bottom: var(--space-section);">
+      <ScrollReveal client:load delay={0.15} mode="emerge">
+        <h2
+          class="mb-4"
+          style="font-family: var(--font-serif); font-size: var(--text-heading); color: var(--text-primary);"
+        >
+          Our Mission
+        </h2>
+        <p class="leading-relaxed" style="color: var(--text-secondary); font-size: var(--text-body); max-width: 40rem;">
+          We create and support programs that educate the public, build community, and advocate for LGBTQ visibility and rights. From workshops and resources to partnerships and outreach, we work to make the world more inclusive—one connection at a time.
+        </p>
+      </ScrollReveal>
+    </section>
 
-        <ScrollReveal client:load delay={0.3}>
-          <h2 class="text-zinc-50">What We Do</h2>
-          <ul class="text-zinc-400">
-            <li><strong class="text-zinc-100">Education</strong> — Workshops, resources, and programs that foster understanding and support for LGBTQ experiences.</li>
-            <li><strong class="text-zinc-100">Community</strong> — Building connections and support networks so everyone can thrive as their authentic selves.</li>
-            <li><strong class="text-zinc-100">Advocacy</strong> — Standing up for LGBTQ rights and visibility through outreach and informed advocacy.</li>
-            <li><strong class="text-zinc-100">Safe Spaces</strong> — Creating and supporting environments where LGBTQ individuals can learn, grow, and belong.</li>
-          </ul>
-        </ScrollReveal>
+    {/* What We Do section */}
+    <section class="max-w-4xl mx-auto px-6 md:px-12" style="padding-bottom: var(--space-section);">
+      <ScrollReveal client:load mode="emerge">
+        <h2
+          class="mb-8"
+          style="font-family: var(--font-serif); font-size: var(--text-heading); color: var(--text-primary);"
+        >
+          What We Do
+        </h2>
+      </ScrollReveal>
 
-        <ScrollReveal client:load delay={0.4}>
-          <h2 class="text-zinc-50">Get Involved</h2>
-          <p class="text-zinc-400">
-            Whether you want to volunteer, donate, partner with us, or simply learn more—we’d love to hear from you. <a href="/contact" class="text-rose-400 hover:text-rose-300 underline">Contact us</a> to get involved.
-          </p>
-        </ScrollReveal>
-      </div>
+      <ScrollReveal client:load mode="cascade" staggerDelay={0.1}>
+        <div
+          class="flex items-start gap-4 p-5 rounded-2xl transition-colors duration-300"
+          style="border: 1px solid oklch(0.25 0.02 280 / 0.3);"
+        >
+          <div class="w-2 h-2 rounded-full mt-2.5 shrink-0" style="background: var(--accent-warm);"></div>
+          <div>
+            <h3 class="font-semibold mb-1" style="color: var(--text-primary);">Education</h3>
+            <p style="color: var(--text-secondary); font-size: var(--text-body);">Workshops, resources, and programs that foster understanding and support for LGBTQ experiences.</p>
+          </div>
+        </div>
+        <div
+          class="flex items-start gap-4 p-5 rounded-2xl transition-colors duration-300"
+          style="border: 1px solid oklch(0.25 0.02 280 / 0.3);"
+        >
+          <div class="w-2 h-2 rounded-full mt-2.5 shrink-0" style="background: var(--accent-cool);"></div>
+          <div>
+            <h3 class="font-semibold mb-1" style="color: var(--text-primary);">Community</h3>
+            <p style="color: var(--text-secondary); font-size: var(--text-body);">Building connections and support networks so everyone can thrive as their authentic selves.</p>
+          </div>
+        </div>
+        <div
+          class="flex items-start gap-4 p-5 rounded-2xl transition-colors duration-300"
+          style="border: 1px solid oklch(0.25 0.02 280 / 0.3);"
+        >
+          <div class="w-2 h-2 rounded-full mt-2.5 shrink-0" style="background: var(--accent-warm);"></div>
+          <div>
+            <h3 class="font-semibold mb-1" style="color: var(--text-primary);">Advocacy</h3>
+            <p style="color: var(--text-secondary); font-size: var(--text-body);">Standing up for LGBTQ rights and visibility through outreach and informed advocacy.</p>
+          </div>
+        </div>
+        <div
+          class="flex items-start gap-4 p-5 rounded-2xl transition-colors duration-300"
+          style="border: 1px solid oklch(0.25 0.02 280 / 0.3);"
+        >
+          <div class="w-2 h-2 rounded-full mt-2.5 shrink-0" style="background: var(--accent-cool);"></div>
+          <div>
+            <h3 class="font-semibold mb-1" style="color: var(--text-primary);">Safe Spaces</h3>
+            <p style="color: var(--text-secondary); font-size: var(--text-body);">Creating and supporting environments where LGBTQ individuals can learn, grow, and belong.</p>
+          </div>
+        </div>
+      </ScrollReveal>
+    </section>
+
+    {/* Get Involved section */}
+    <section class="max-w-4xl mx-auto px-6 md:px-12" style="padding-bottom: var(--space-section);">
+      <ScrollReveal client:load mode="emerge">
+        <h2
+          class="mb-4"
+          style="font-family: var(--font-serif); font-size: var(--text-heading); color: var(--text-primary);"
+        >
+          Get Involved
+        </h2>
+        <p class="leading-relaxed mb-6" style="color: var(--text-secondary); font-size: var(--text-body); max-width: 40rem;">
+          Whether you want to volunteer, donate, partner with us, or simply learn more—we'd love to hear from you.
+        </p>
+        <a href="/contact" class="btn-primary">
+          Contact Us
+        </a>
+      </ScrollReveal>
     </section>
   </main>
   <Footer />

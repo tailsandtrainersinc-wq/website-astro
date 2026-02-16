@@ -11,76 +11,151 @@ const site = siteEntries[0]?.data ?? {
 
 <footer
   id="contact"
-  class="w-full py-12 px-4 border-t border-zinc-800 bg-zinc-900/50"
+  class="relative w-full py-16 md:py-20 px-6 md:px-12 overflow-hidden"
   role="contentinfo"
+  style="background: oklch(0.10 0.02 280);"
 >
-  <div class="max-w-6xl mx-auto">
-    <div class="grid md:grid-cols-3 gap-8 mb-8">
-      <div>
-        <h2 class="text-lg font-semibold text-zinc-50 mb-4">{SITE.title}</h2>
-        <p class="text-zinc-400">
+  {/* Gradient border top */}
+  <div
+    class="absolute top-0 left-0 right-0 h-px"
+    style="background: linear-gradient(90deg, transparent 10%, oklch(0.72 0.18 25 / 0.3) 50%, transparent 90%);"
+    aria-hidden="true"
+  ></div>
+
+  {/* Fine horizontal line texture */}
+  <div
+    class="absolute inset-0 pointer-events-none opacity-[0.03]"
+    style="background: repeating-linear-gradient(0deg, transparent, transparent 3px, oklch(0.95 0.01 80) 3px, oklch(0.95 0.01 80) 4px);"
+    aria-hidden="true"
+  ></div>
+
+  {/* Watermark */}
+  <div
+    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none pointer-events-none whitespace-nowrap"
+    style="font-family: var(--font-serif); font-size: clamp(6rem, 15vw, 16rem); color: var(--text-primary); opacity: 0.03; line-height: 1;"
+    aria-hidden="true"
+  >
+    {SITE.title}
+  </div>
+
+  <div class="relative z-10 max-w-6xl mx-auto">
+    {/* Main footer content: asymmetric layout */}
+    <div class="flex flex-col md:flex-row gap-12 md:gap-16 mb-12">
+      {/* Left: Org info (wider) */}
+      <div class="flex-1 md:max-w-[55%]">
+        <h2
+          class="text-2xl mb-4"
+          style="font-family: var(--font-serif); color: var(--text-primary);"
+        >
+          {SITE.title}
+        </h2>
+        <p class="leading-relaxed mb-6" style="color: var(--text-secondary); max-width: 28rem;">
           {site.footerDescription}
         </p>
+        <div class="flex items-center gap-4">
+          <a
+            href="/contact"
+            class="inline-flex items-center gap-2 transition-colors duration-300 hover:opacity-80"
+            style="color: var(--accent-warm);"
+          >
+            <Icon name="tabler:mail" class="w-5 h-5" aria-hidden="true" />
+            <span class="text-sm font-medium">Get in touch</span>
+          </a>
+        </div>
       </div>
-      <div>
-        <h2 class="text-lg font-semibold text-zinc-50 mb-4">Explore</h2>
-        <ul class="space-y-2">
-          <li>
-            <a
-              href="/features"
-              class="text-zinc-400 hover:text-rose-400 transition-colors"
-              >What We Do</a
-            >
-          </li>
-          <li>
-            <a
-              href="/calendar"
-              class="text-zinc-400 hover:text-rose-400 transition-colors"
-              >Calendar</a
-            >
-          </li>
-          <li>
-            <a
-              href="/about"
-              class="text-zinc-400 hover:text-rose-400 transition-colors"
-              >About</a
-            >
-          </li>
-          <li>
-            <a
-              href="/contact"
-              class="text-zinc-400 hover:text-rose-400 transition-colors"
-              >Contact</a
-            >
-          </li>
-        </ul>
-      </div>
-      <div>
-        <h2 class="text-lg font-semibold text-zinc-50 mb-4">Get Involved</h2>
-        <ul class="space-y-2">
-          <li>
-            <a
-              href="/contact"
-              class="flex items-center gap-2 text-zinc-400 hover:text-rose-400 transition-colors"
-            >
-              <Icon name="tabler:mail" class="w-5 h-5" aria-hidden="true" />
-              <span>Contact Us</span></a
-            >
-          </li>
-          <li>
-            <a
-              href="/contact"
-              class="flex items-center gap-2 text-zinc-400 hover:text-rose-400 transition-colors"
-            >
-              <Icon name="tabler:heart" class="w-5 h-5" aria-hidden="true" />
-              <span>Volunteer</span></a
-            >
-          </li>
-        </ul>
+
+      {/* Right: Link columns */}
+      <div class="flex gap-12 md:gap-16">
+        <div>
+          <h3
+            class="text-xs tracking-[0.2em] uppercase mb-4"
+            style="color: var(--text-tertiary);"
+          >
+            Explore
+          </h3>
+          <ul class="space-y-3">
+            <li>
+              <a href="/features" class="footer-link" style="color: var(--text-secondary);">
+                What We Do
+              </a>
+            </li>
+            <li>
+              <a href="/calendar" class="footer-link" style="color: var(--text-secondary);">
+                Calendar
+              </a>
+            </li>
+            <li>
+              <a href="/about" class="footer-link" style="color: var(--text-secondary);">
+                About
+              </a>
+            </li>
+            <li>
+              <a href="/contact" class="footer-link" style="color: var(--text-secondary);">
+                Contact
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3
+            class="text-xs tracking-[0.2em] uppercase mb-4"
+            style="color: var(--text-tertiary);"
+          >
+            Join Us
+          </h3>
+          <ul class="space-y-3">
+            <li>
+              <a href="/contact" class="footer-link" style="color: var(--text-secondary);">
+                Volunteer
+              </a>
+            </li>
+            <li>
+              <a href="/contact" class="footer-link" style="color: var(--text-secondary);">
+                Donate
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-    <div class="pt-8 border-t border-zinc-800 text-center text-zinc-500 text-sm">
-      <p>&copy; {new Date().getFullYear()} {SITE.title}. A 501(c)(3) non-profit. All rights reserved.</p>
+
+    {/* Bottom bar */}
+    <div
+      class="pt-8 text-center"
+      style="border-top: 1px solid oklch(0.25 0.02 280 / 0.4);"
+    >
+      <p class="text-xs" style="color: var(--text-tertiary);">
+        &copy; {new Date().getFullYear()} {SITE.title}. A 501(c)(3) non-profit. All rights reserved.
+      </p>
     </div>
   </div>
 </footer>
+
+<style>
+  .footer-link {
+    position: relative;
+    text-decoration: none;
+    font-size: 0.9375rem;
+    transition: color 0.3s;
+  }
+
+  .footer-link::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--accent-warm);
+    transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .footer-link:hover {
+    color: var(--text-primary) !important;
+  }
+
+  .footer-link:hover::after {
+    width: 100%;
+  }
+</style>

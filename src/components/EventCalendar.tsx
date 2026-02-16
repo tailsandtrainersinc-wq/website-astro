@@ -42,7 +42,7 @@ const TAG_COLORS: Record<string, { bg: string; text: string; border: string }> =
   fursuit:         { bg: "bg-amber-500/15", text: "text-amber-300", border: "border-amber-500/30" },
 };
 
-const DEFAULT_TAG = { bg: "bg-zinc-500/15", text: "text-zinc-300", border: "border-zinc-500/30" };
+const DEFAULT_TAG = { bg: "bg-zinc-500/15", text: "text-zinc-400", border: "border-zinc-500/20" };
 
 function tagStyle(tag: string) {
   return TAG_COLORS[tag] ?? DEFAULT_TAG;
@@ -51,12 +51,12 @@ function tagStyle(tag: string) {
 /* ── Bar colors for multi-day spanning events ─────────────── */
 
 const BAR_COLORS = [
-  { bg: "bg-rose-500/25", hover: "hover:bg-rose-500/35", active: "bg-rose-500/40", text: "text-rose-100", border: "border-rose-500/40" },
-  { bg: "bg-violet-500/25", hover: "hover:bg-violet-500/35", active: "bg-violet-500/40", text: "text-violet-100", border: "border-violet-500/40" },
-  { bg: "bg-sky-500/25", hover: "hover:bg-sky-500/35", active: "bg-sky-500/40", text: "text-sky-100", border: "border-sky-500/40" },
-  { bg: "bg-emerald-500/25", hover: "hover:bg-emerald-500/35", active: "bg-emerald-500/40", text: "text-emerald-100", border: "border-emerald-500/40" },
-  { bg: "bg-amber-500/25", hover: "hover:bg-amber-500/35", active: "bg-amber-500/40", text: "text-amber-100", border: "border-amber-500/40" },
-  { bg: "bg-fuchsia-500/25", hover: "hover:bg-fuchsia-500/35", active: "bg-fuchsia-500/40", text: "text-fuchsia-100", border: "border-fuchsia-500/40" },
+  { bg: "bg-rose-500/20", hover: "hover:bg-rose-500/30", active: "bg-rose-500/35", text: "text-rose-200", border: "border-rose-500/30" },
+  { bg: "bg-violet-500/20", hover: "hover:bg-violet-500/30", active: "bg-violet-500/35", text: "text-violet-200", border: "border-violet-500/30" },
+  { bg: "bg-sky-500/20", hover: "hover:bg-sky-500/30", active: "bg-sky-500/35", text: "text-sky-200", border: "border-sky-500/30" },
+  { bg: "bg-emerald-500/20", hover: "hover:bg-emerald-500/30", active: "bg-emerald-500/35", text: "text-emerald-200", border: "border-emerald-500/30" },
+  { bg: "bg-amber-500/20", hover: "hover:bg-amber-500/30", active: "bg-amber-500/35", text: "text-amber-200", border: "border-amber-500/30" },
+  { bg: "bg-fuchsia-500/20", hover: "hover:bg-fuchsia-500/30", active: "bg-fuchsia-500/35", text: "text-fuchsia-200", border: "border-fuchsia-500/30" },
 ];
 
 /* ── Date helpers ──────────────────────────────────────────── */
@@ -211,10 +211,12 @@ function EventPopover({ parent, children, onSelect, onClose }: PopoverProps) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -4 }}
       transition={{ duration: 0.15 }}
-      className="absolute left-0 top-full mt-1 z-40 bg-zinc-800/95 backdrop-blur-sm border border-zinc-700 rounded-xl shadow-2xl overflow-hidden min-w-[200px] max-w-[280px]"
+      className="absolute left-0 top-full mt-1 z-40 backdrop-blur-sm rounded-xl shadow-2xl overflow-hidden min-w-[200px] max-w-[280px]"
+      style={{ background: "var(--surface-mid)", borderWidth: "1px", borderColor: "oklch(0.30 0.03 290 / 0.4)" }}
     >
       <button type="button" onClick={() => onSelect(parent)}
-        className="w-full text-left px-4 py-2.5 text-xs font-semibold text-rose-300 hover:bg-zinc-700/60 transition-colors border-b border-zinc-700/50">
+        className="w-full text-left px-4 py-2.5 text-xs font-semibold transition-colors border-b"
+        style={{ color: "var(--accent-warm)", borderColor: "oklch(0.25 0.02 280 / 0.4)" }}>
         {parent.title}
         <span className="block text-[10px] text-zinc-500 font-normal mt-0.5">View details</span>
       </button>
@@ -223,7 +225,7 @@ function EventPopover({ parent, children, onSelect, onClose }: PopoverProps) {
           <button key={ch.id} type="button" onClick={() => onSelect(ch)}
             className="w-full text-left px-4 py-2 text-xs text-zinc-300 hover:bg-zinc-700/60 transition-colors flex items-baseline gap-2">
             <span className="truncate">{ch.title}</span>
-            {ch.startTime && <span className="text-[10px] text-zinc-500 shrink-0">{ch.startTime}</span>}
+            {ch.startTime && <span className="text-[10px] shrink-0">{ch.startTime}</span>}
           </button>
         ))}
       </div>
@@ -267,11 +269,11 @@ function DesktopCalendar({
   onPopoverSelect: (ev: CalendarEvent) => void;
 }) {
   return (
-    <div className="hidden md:block rounded-2xl overflow-hidden border border-zinc-800/80 shadow-xl shadow-black/20">
+    <div className="hidden md:block rounded-2xl overflow-hidden shadow-xl shadow-black/20" style={{ borderWidth: "1px", borderColor: "oklch(0.25 0.02 280 / 0.4)" }}>
       {/* Day-of-week header */}
-      <div className="grid grid-cols-7 bg-zinc-800" style={{ gap: "1px" }}>
+      <div className="grid grid-cols-7" style={{ gap: "1px", background: "oklch(0.20 0.02 280 / 0.5)" }}>
         {WEEKDAYS.map((day) => (
-          <div key={day} className="bg-zinc-900 py-2.5 text-center text-xs font-semibold text-zinc-500 uppercase tracking-wider">
+          <div key={day} className="py-2.5 text-center text-xs font-semibold uppercase tracking-wider" style={{ background: "var(--surface-deep)", color: "var(--text-tertiary)" }}>
             {day}
           </div>
         ))}
@@ -285,17 +287,17 @@ function DesktopCalendar({
         return (
           <div key={w} className="relative">
             {/* Day cells */}
-            <div className="grid grid-cols-7 bg-zinc-800/60" style={{ gap: "1px" }}>
+            <div className="grid grid-cols-7" style={{ gap: "1px", background: "oklch(0.20 0.02 280 / 0.3)" }}>
               {weekDays.map((d, c) => {
                 const isThisMonth = isCurMonth(d, year, month);
                 const isToday = isThisMonth && d.getDate() === now.getDate() && d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
 
                 return (
                   <div key={c}
-                    className={`bg-zinc-900/90 flex flex-col transition-colors ${
+                    className={`flex flex-col transition-colors ${
                       isThisMonth ? "" : "opacity-40"
                     }`}
-                    style={{ minHeight: "110px", paddingTop: `${DATE_ROW_H + barAreaH + 6}px` }}
+                    style={{ background: "oklch(0.14 0.02 280 / 0.9)", minHeight: "110px", paddingTop: `${DATE_ROW_H + barAreaH + 6}px` }}
                   >
                     <div className="flex flex-col gap-1 px-1.5 pb-1.5 flex-1 overflow-visible">
                       {singleByCol[c].map((ev) => {
@@ -308,11 +310,11 @@ function DesktopCalendar({
                           <div key={ev.id} className="relative">
                             <button type="button"
                               onClick={() => onEventClick(ev, popKey)}
-                              className={`w-full text-left text-[11px] leading-tight px-2 py-1 rounded-md transition-all flex items-center gap-1 ${
-                                isOpen
-                                  ? "bg-rose-500/30 text-rose-100 shadow-sm"
-                                  : "bg-rose-500/15 text-rose-200 hover:bg-rose-500/25 hover:shadow-sm"
-                              }`}
+                              className={`w-full text-left text-[11px] leading-tight px-2 py-1 rounded-md transition-all flex items-center gap-1`}
+                              style={{
+                                background: isOpen ? "oklch(0.72 0.18 25 / 0.25)" : "oklch(0.72 0.18 25 / 0.1)",
+                                color: isOpen ? "var(--text-primary)" : "oklch(0.80 0.12 25)",
+                              }}
                               title={ev.title}>
                               <span className="truncate font-medium">{ev.title}</span>
                               {hasKids && (
@@ -346,9 +348,14 @@ function DesktopCalendar({
                   <div key={c} className={`p-1.5 ${isThisMonth ? "" : "opacity-40"}`}>
                     <span className={`text-xs font-semibold inline-flex items-center justify-center w-7 h-7 ${
                       isToday
-                        ? "bg-rose-500 text-white rounded-full shadow-lg shadow-rose-500/30"
-                        : isThisMonth ? "text-zinc-300" : "text-zinc-600"
-                    }`}>
+                        ? "rounded-full shadow-lg"
+                        : ""
+                    }`}
+                    style={{
+                      ...(isToday
+                        ? { background: "var(--accent-warm)", color: "var(--surface-deep)", boxShadow: "0 4px 12px oklch(0.72 0.18 25 / 0.3)" }
+                        : { color: isThisMonth ? "var(--text-secondary)" : "var(--text-tertiary)" })
+                    }}>
                       {d.getDate()}
                     </span>
                   </div>
@@ -437,12 +444,12 @@ function MobileAgenda({
   if (monthEvents.length === 0) {
     return (
       <div className="md:hidden py-12 text-center">
-        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-zinc-800/50 flex items-center justify-center">
-          <svg className="w-8 h-8 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style={{ background: "var(--surface-raised)" }}>
+          <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: "var(--text-tertiary)" }}>
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
           </svg>
         </div>
-        <p className="text-zinc-500 text-sm">No events this month</p>
+        <p className="text-sm" style={{ color: "var(--text-tertiary)" }}>No events this month</p>
       </div>
     );
   }
@@ -459,7 +466,8 @@ function MobileAgenda({
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.25 }}
-            className="rounded-xl border border-zinc-800/80 bg-zinc-900/80 overflow-hidden"
+            className="rounded-xl overflow-hidden"
+            style={{ background: "oklch(0.14 0.02 280 / 0.8)", borderWidth: "1px", borderColor: "oklch(0.25 0.02 280 / 0.4)" }}
           >
             {/* Main event card */}
             <button
@@ -470,22 +478,22 @@ function MobileAgenda({
               {/* Date badge */}
               <div className="flex items-start gap-3">
                 <div className="shrink-0 w-12 text-center">
-                  <div className="text-[10px] font-semibold text-zinc-500 uppercase">
+                  <div className="text-[10px] font-semibold uppercase" style={{ color: "var(--text-tertiary)" }}>
                     {new Date(ev.date + "T12:00:00").toLocaleDateString("en-US", { month: "short" })}
                   </div>
-                  <div className="text-xl font-bold text-zinc-100 leading-tight">
+                  <div className="text-xl font-bold leading-tight" style={{ color: "var(--text-primary)" }}>
                     {new Date(ev.date + "T12:00:00").getDate()}
                   </div>
                   {multi && (
-                    <div className="text-[9px] text-zinc-500 mt-0.5">
+                    <div className="text-[9px] mt-0.5" style={{ color: "var(--text-tertiary)" }}>
                       – {new Date(ev.endDate! + "T12:00:00").getDate()}
                     </div>
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-semibold text-zinc-100 text-sm leading-snug mb-1">{ev.title}</h3>
-                  <p className="text-xs text-zinc-400 line-clamp-2 mb-2">{ev.description}</p>
-                  <div className="flex flex-wrap items-center gap-2 text-[11px] text-zinc-500">
+                  <h3 className="font-semibold text-sm leading-snug mb-1" style={{ color: "var(--text-primary)" }}>{ev.title}</h3>
+                  <p className="text-xs line-clamp-2 mb-2" style={{ color: "var(--text-secondary)" }}>{ev.description}</p>
+                  <div className="flex flex-wrap items-center gap-2 text-[11px]" style={{ color: "var(--text-tertiary)" }}>
                     {ev.startTime && (
                       <span className="flex items-center gap-1">
                         <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -518,19 +526,20 @@ function MobileAgenda({
 
             {/* Sub-events */}
             {kids.length > 0 && (
-              <div className="border-t border-zinc-800/60 bg-zinc-950/40">
+              <div style={{ borderTop: "1px solid oklch(0.20 0.02 280 / 0.5)", background: "oklch(0.11 0.02 280 / 0.6)" }}>
                 <div className="px-4 py-2">
-                  <p className="text-[10px] font-semibold text-zinc-500 uppercase tracking-wider mb-1">Sub-events</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-wider mb-1" style={{ color: "var(--text-tertiary)" }}>Sub-events</p>
                 </div>
                 {kids.map((child) => (
                   <button key={child.id} type="button"
                     onClick={() => onEventClick(child)}
-                    className="w-full text-left px-4 py-2.5 hover:bg-zinc-800/40 active:bg-zinc-800/60 transition-colors flex items-center gap-3 border-t border-zinc-800/30"
+                    className="w-full text-left px-4 py-2.5 transition-colors flex items-center gap-3"
+                    style={{ borderTop: "1px solid oklch(0.20 0.02 280 / 0.3)" }}
                   >
-                    <div className="w-1 h-8 rounded-full bg-rose-500/40 shrink-0" />
+                    <div className="w-1 h-8 rounded-full shrink-0" style={{ background: "oklch(0.72 0.18 25 / 0.4)" }} />
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs font-medium text-zinc-200 truncate">{child.title}</p>
-                      <p className="text-[11px] text-zinc-500">
+                      <p className="text-xs font-medium truncate" style={{ color: "var(--text-primary)" }}>{child.title}</p>
+                      <p className="text-[11px]" style={{ color: "var(--text-tertiary)" }}>
                         {child.startTime && <>{child.startTime}{child.endTime ? ` – ${child.endTime}` : ""}</>}
                         {child.startTime && child.date && " · "}
                         {formatDateShort(child.date)}
@@ -642,8 +651,8 @@ function EventModal({
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
       <motion.div
         ref={sheetRef}
-        className="relative w-full md:max-w-lg md:mx-4 bg-zinc-900 md:rounded-2xl rounded-t-2xl border-t md:border border-zinc-700/80 shadow-2xl flex flex-col"
-        style={{ maxHeight: "min(92vh, 100dvh - env(safe-area-inset-top, 0px))" }}
+        className="relative w-full md:max-w-lg md:mx-4 md:rounded-2xl rounded-t-2xl shadow-2xl flex flex-col"
+        style={{ background: "var(--surface-mid)", borderWidth: "1px", borderColor: "oklch(0.30 0.03 290 / 0.4)", maxHeight: "min(92vh, 100dvh - env(safe-area-inset-top, 0px))" }}
         initial={{ y: "100%", opacity: 0.5 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: "100%", opacity: 0 }}
@@ -655,7 +664,7 @@ function EventModal({
       >
         {/* Drag handle (mobile) — swipe down to dismiss */}
         <div className="flex justify-center pt-3 pb-1 md:hidden shrink-0 cursor-grab active:cursor-grabbing">
-          <div className="w-10 h-1.5 rounded-full bg-zinc-600" />
+          <div className="w-10 h-1.5 rounded-full" style={{ background: "var(--text-tertiary)" }} />
         </div>
 
         {/* Scrollable content */}
@@ -666,19 +675,21 @@ function EventModal({
               <div className="flex-1 min-w-0">
                 {parent && (
                   <button type="button" onClick={() => onNavigate(parent)}
-                    className="text-xs text-rose-400 hover:text-rose-300 active:text-rose-200 transition-colors mb-1.5 flex items-center gap-1">
+                    className="text-xs transition-colors mb-1.5 flex items-center gap-1"
+                    style={{ color: "var(--accent-warm)" }}>
                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                     </svg>
                     {parent.title}
                   </button>
                 )}
-                <h3 id="event-modal-title" className="text-xl md:text-2xl font-bold text-zinc-50 leading-tight">
+                <h3 id="event-modal-title" className="text-xl md:text-2xl font-bold leading-tight" style={{ color: "var(--text-primary)", fontFamily: "var(--font-serif)" }}>
                   {event.title}
                 </h3>
               </div>
               <button type="button" onClick={onClose}
-                className="shrink-0 p-2 -mr-2 -mt-1 rounded-lg text-zinc-400 hover:text-zinc-100 active:bg-zinc-700 hover:bg-zinc-800 transition-colors"
+                className="shrink-0 p-2 -mr-2 -mt-1 rounded-lg transition-colors"
+                style={{ color: "var(--text-tertiary)" }}
                 aria-label="Close">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -693,15 +704,15 @@ function EventModal({
               </div>
             )}
 
-            <p className="text-zinc-400 text-sm md:text-base mb-5 leading-relaxed">{event.description}</p>
+            <p className="text-sm md:text-base mb-5 leading-relaxed" style={{ color: "var(--text-secondary)" }}>{event.description}</p>
 
             {/* Meta details */}
-            <div className="flex flex-col gap-3 p-4 bg-zinc-800/50 rounded-xl mb-5">
+            <div className="flex flex-col gap-3 p-4 rounded-xl mb-5" style={{ background: "var(--surface-raised)" }}>
               <div className="flex items-start gap-3">
-                <svg className="w-4 h-4 text-zinc-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
-                <div className="text-sm text-zinc-300">
+                <div className="text-sm">
                   {formatDate(event.date)}
                   {event.endDate && event.endDate !== event.date && (
                     <><br className="md:hidden" /><span className="hidden md:inline"> – </span><span className="md:hidden">– </span>{formatDate(event.endDate)}</>
@@ -710,32 +721,32 @@ function EventModal({
               </div>
               {(event.startTime || event.endTime) && (
                 <div className="flex items-center gap-3">
-                  <svg className="w-4 h-4 text-zinc-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <span className="text-sm text-zinc-300">
+                  <span className="text-sm">
                     {[event.startTime, event.endTime].filter(Boolean).join(" – ")}
                   </span>
                 </div>
               )}
               {event.location && (
                 <div className="flex items-center gap-3">
-                  <svg className="w-4 h-4 text-zinc-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
-                  <span className="text-sm text-zinc-300">{event.location}</span>
+                  <span className="text-sm">{event.location}</span>
                 </div>
               )}
             </div>
 
             {/* Body */}
             {event.body && (
-              <div className="prose prose-invert prose-sm max-w-none text-zinc-300 border-t border-zinc-800 pt-5">
+              <div className="prose prose-invert prose-sm max-w-none pt-5" style={{ borderTop: "1px solid oklch(0.25 0.02 280 / 0.4)", color: "var(--text-secondary)" }}>
                 <ReactMarkdown
                   components={{
                     a: ({ href, children }) => (
-                      <a href={href} className="text-rose-400 hover:text-rose-300 underline">{children}</a>
+                      <a href={href} className="underline" style={{ color: "var(--accent-warm)" }}>{children}</a>
                     ),
                   }}
                 >
@@ -746,18 +757,18 @@ function EventModal({
 
             {/* Sub-events list */}
             {children.length > 0 && (
-              <div className="border-t border-zinc-800 pt-5 mt-5">
-                <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-3">
+              <div className="pt-5 mt-5" style={{ borderTop: "1px solid oklch(0.25 0.02 280 / 0.4)" }}>
+                <h4 className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: "var(--text-tertiary)" }}>
                   Sub-events ({children.length})
                 </h4>
                 <div className="space-y-1">
                   {children.map((child) => (
                     <button key={child.id} type="button" onClick={() => onNavigate(child)}
-                      className="w-full text-left p-3 rounded-lg hover:bg-zinc-800/60 active:bg-zinc-800/80 transition-colors flex items-center gap-3 group">
-                      <div className="w-1 h-8 rounded-full bg-rose-500/40 group-hover:bg-rose-500/60 transition-colors shrink-0" />
+                      className="w-full text-left p-3 rounded-lg transition-colors flex items-center gap-3 group">
+                      <div className="w-1 h-8 rounded-full transition-colors shrink-0" style={{ background: "oklch(0.72 0.18 25 / 0.4)" }} />
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-zinc-200">{child.title}</p>
-                        <p className="text-xs text-zinc-500">
+                        <p className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>{child.title}</p>
+                        <p className="text-xs" style={{ color: "var(--text-tertiary)" }}>
                           {formatDateShort(child.date)}
                           {child.startTime && ` · ${child.startTime}`}
                           {child.endTime && ` – ${child.endTime}`}
@@ -871,22 +882,22 @@ export default function EventCalendar({ events }: EventCalendarProps) {
     <div className="event-calendar">
       {/* Month header */}
       <header className="flex items-center justify-between gap-4 mb-6">
-        <h2 className="text-2xl md:text-3xl font-bold text-zinc-50">{monthLabel}</h2>
+        <h2 className="text-2xl md:text-3xl font-bold" style={{ color: "var(--text-primary)", fontFamily: "var(--font-serif)" }}>{monthLabel}</h2>
         <div className="flex items-center gap-1">
           <button type="button" onClick={goPrev}
-            className="p-2.5 rounded-xl text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/80 transition-colors"
+            className="p-2.5 rounded-xl transition-colors"
             aria-label="Previous month">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
           <button type="button" onClick={() => { setYear(now.getFullYear()); setMonth(now.getMonth()); setOpenPopover(null); }}
-            className="px-3 py-1.5 rounded-lg text-xs font-medium text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/80 transition-colors hidden md:block"
+            className="px-3 py-1.5 rounded-lg text-xs font-medium transition-colors hidden md:block"
           >
             Today
           </button>
           <button type="button" onClick={goNext}
-            className="p-2.5 rounded-xl text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/80 transition-colors"
+            className="p-2.5 rounded-xl transition-colors"
             aria-label="Next month">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
