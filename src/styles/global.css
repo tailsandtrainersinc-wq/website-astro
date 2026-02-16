@@ -9,6 +9,24 @@
   --tw-prose-bold: theme("colors.zinc.100");
   --tw-prose-code: theme("colors.zinc.300");
   --tw-prose-pre-bg: theme("colors.zinc.800");
+  --tw-prose-quotes: theme("colors.zinc.400");
+  --tw-prose-quote-borders: theme("colors.rose.500/30");
+  --tw-prose-counters: theme("colors.zinc.500");
+  --tw-prose-bullets: theme("colors.zinc.600");
+  --tw-prose-hr: theme("colors.zinc.800");
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Better selection color */
+::selection {
+  background: theme("colors.rose.500/30");
+  color: theme("colors.zinc.50");
 }
 
 /* Accessibility: Skip to content link */
@@ -33,4 +51,26 @@
   overflow: visible;
   clip: auto;
   white-space: normal;
+}
+
+/* Line-clamp utility */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* TipTap WYSIWYG editor */
+.tiptap {
+  outline: none;
+  min-height: 180px;
+}
+
+.tiptap p.is-editor-empty:first-child::before {
+  content: "Start writing...";
+  float: left;
+  color: theme("colors.zinc.500");
+  pointer-events: none;
+  height: 0;
 }

@@ -1,0 +1,20 @@
+---
+// Admin page — dev-only WYSIWYG content editor
+// In production builds this renders as a static shell;
+// the React app detects the missing API and shows a message.
+import '../../styles/global.css';
+import AdminApp from "../../components/admin/AdminApp";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Admin — Content Editor</title>
+  </head>
+  <body class="h-screen bg-zinc-950 text-zinc-100 antialiased">
+    <AdminApp client:only="react" />
+  </body>
+</html>

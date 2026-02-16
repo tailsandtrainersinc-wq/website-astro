@@ -12,9 +12,12 @@ const events = entries.map((entry) => ({
   title: entry.data.title,
   description: entry.data.description,
   date: entry.data.date,
+  endDate: entry.data.endDate ?? undefined,
   startTime: entry.data.startTime ?? undefined,
   endTime: entry.data.endTime ?? undefined,
   location: entry.data.location ?? undefined,
+  tags: entry.data.tags ?? [],
+  parentEvent: entry.data.parentEvent ?? undefined,
   body: entry.body ?? undefined,
 }));
 ---
@@ -26,11 +29,13 @@ const events = entries.map((entry) => ({
 >
   <Header />
   <main id="main-content" role="main">
-    <section class="max-w-5xl mx-auto px-4 py-16">
-      <h1 class="text-4xl font-bold text-zinc-50 mb-2">Events</h1>
-      <p class="text-zinc-400 mb-10">
-        Click an event on the calendar to see details. All events are open unless noted.
-      </p>
+    <section class="max-w-6xl mx-auto px-4 py-10 md:py-16">
+      <div class="mb-8 md:mb-10">
+        <h1 class="text-3xl md:text-4xl font-bold text-zinc-50 mb-2">Events</h1>
+        <p class="text-zinc-400 text-sm md:text-base">
+          Cons, meetups, workshops, and community gatherings. Tap any event for details.
+        </p>
+      </div>
       <EventCalendar client:load events={events} />
     </section>
   </main>

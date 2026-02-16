@@ -5,6 +5,7 @@ import icon from "astro-icon";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
+import adminApi from "./src/integrations/admin-api.ts";
 import { SITE } from "./src/config/site.mjs";
 
 // https://astro.build/config
@@ -19,6 +20,7 @@ export default defineConfig({
       priority: 0.7,
       lastmod: new Date(),
     }),
+    adminApi(),
   ],
   vite: {
     plugins: [tailwindcss()],

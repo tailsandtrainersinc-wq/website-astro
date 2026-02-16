@@ -34,9 +34,14 @@ const events = defineCollection({
     date: z.union([z.string(), z.date()]).transform((v) =>
       typeof v === "string" ? v : v.toISOString().slice(0, 10)
     ),
+    endDate: z.union([z.string(), z.date()]).transform((v) =>
+      typeof v === "string" ? v : v.toISOString().slice(0, 10)
+    ).optional(),
     startTime: z.string().optional(),
     endTime: z.string().optional(),
     location: z.string().optional(),
+    tags: z.array(z.string()).optional().default([]),
+    parentEvent: z.string().optional(), // slug of parent event (e.g. a con this show belongs to)
   }),
 });
 
