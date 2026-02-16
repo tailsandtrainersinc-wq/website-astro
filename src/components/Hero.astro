@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import ScrollReveal from "./ScrollReveal.tsx";
+import HeroInteractive from "./HeroInteractive.tsx";
 import { Icon } from "astro-icon/components";
 
 const siteEntries = await getCollection("site");
@@ -11,36 +12,53 @@ const site = siteEntries[0]?.data ?? {
 };
 ---
 
-<section class="max-w-6xl mx-auto px-4 py-20 md:py-32 text-center" aria-labelledby="hero-heading">
-  <ScrollReveal client:load>
-    <h1 id="hero-heading" class="text-5xl md:text-6xl font-bold text-zinc-50 mb-6">
-      {site.heroTitle}
-    </h1>
-  </ScrollReveal>
-  <ScrollReveal client:load delay={0.2}>
-    <p class="text-xl md:text-2xl text-zinc-400 mb-2 max-w-2xl mx-auto">
-      {site.heroSubtitle}
-    </p>
-    {site.heroTagline && (
-      <p class="text-base text-zinc-500 mb-8">{site.heroTagline}</p>
-    )}
-  </ScrollReveal>
-  <ScrollReveal client:load delay={0.4}>
-    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <a
-        href="/contact"
-        class="inline-flex items-center gap-2 px-8 py-3 bg-rose-500 text-white rounded-lg hover:bg-rose-600 transition-colors font-medium"
-        aria-label="Get involved with Tails and Trainers"
+<section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden" aria-labelledby="hero-heading">
+  <!-- Interactive background layer -->
+  <HeroInteractive client:load />
+
+  <!-- Content -->
+  <div class="relative z-10 max-w-5xl mx-auto px-4 py-20 md:py-32 text-center">
+    <ScrollReveal client:load>
+      <h1
+        id="hero-heading"
+        class="font-[var(--font-display)] font-black text-cream mb-6"
+        style="font-size: var(--text-hero)"
       >
-        <Icon name="tabler:heart" class="w-5 h-5" aria-hidden="true" />
-        <span>Get Involved</span>
-      </a>
-      <a
-        href="/about"
-        class="inline-block px-8 py-3 bg-zinc-800 text-zinc-100 border border-zinc-700 rounded-lg hover:bg-zinc-700 transition-colors font-medium"
-      >
-        Our Mission
-      </a>
-    </div>
-  </ScrollReveal>
+        {site.heroTitle}
+      </h1>
+    </ScrollReveal>
+    <ScrollReveal client:load delay={0.2}>
+      <p class="text-taupe mb-2 max-w-2xl mx-auto" style="font-size: var(--text-subhead)">
+        {site.heroSubtitle}
+      </p>
+      {site.heroTagline && (
+        <p class="text-sm text-taupe-dark mb-8 uppercase tracking-widest">{site.heroTagline}</p>
+      )}
+    </ScrollReveal>
+    <ScrollReveal client:load delay={0.4}>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/contact"
+          class="btn-primary btn-wag"
+          aria-label="Get involved with Tails and Trainers"
+        >
+          <Icon name="tabler:heart" class="w-5 h-5" aria-hidden="true" />
+          <span>Get Involved</span>
+        </a>
+        <a
+          href="/about"
+          class="btn-secondary"
+        >
+          Our Mission
+        </a>
+      </div>
+    </ScrollReveal>
+  </div>
+
+  <!-- Scroll hint -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 scroll-hint">
+    <svg class="w-6 h-6 text-taupe-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+    </svg>
+  </div>
 </section>

@@ -29,26 +29,26 @@ const { title, description, icon } = entry.data;
     <article class="max-w-4xl mx-auto px-4 py-16">
       <a
         href="/features"
-        class="inline-flex items-center gap-2 text-zinc-400 hover:text-rose-400 transition-colors mb-8 text-sm"
+        class="inline-flex items-center gap-2 text-taupe hover:text-brass transition-colors mb-8 text-sm"
       >
-        ← Back to What We Do
+        &larr; Back to What We Do
       </a>
       <header class="mb-10">
-        <div class="w-14 h-14 bg-rose-500/20 rounded-xl flex items-center justify-center mb-6 text-rose-400">
+        <div class="w-14 h-14 bg-brass/15 rounded-xl flex items-center justify-center mb-6 text-brass">
           <Icon name={icon} class="w-7 h-7" aria-hidden="true" />
         </div>
-        <h1 class="text-4xl md:text-5xl font-bold text-zinc-50 mb-4">{title}</h1>
-        <p class="text-xl text-zinc-400">{description}</p>
+        <h1 class="text-4xl md:text-5xl font-bold text-cream mb-4 font-[var(--font-display)]">{title}</h1>
+        <p class="text-xl text-taupe">{description}</p>
       </header>
       <div class="prose prose-invert prose-lg max-w-none">
         <Content />
       </div>
       {entry.id === "get-involved" && (
-        <div class="mt-12 p-6 bg-zinc-900/80 rounded-xl border border-zinc-800 text-center">
-          <p class="text-zinc-300 mb-4">Ready to make a difference?</p>
+        <div class="mt-12 p-6 bg-leather-raised/80 rounded-xl border border-brass/20 text-center">
+          <p class="text-taupe mb-4">Ready to make a difference?</p>
           <a
             href="/contact"
-            class="inline-flex items-center gap-2 px-6 py-3 bg-rose-500 text-white rounded-lg hover:bg-rose-600 transition-colors font-medium"
+            class="btn-primary btn-wag"
           >
             Contact Us
           </a>

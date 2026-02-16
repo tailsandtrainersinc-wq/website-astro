@@ -7,79 +7,80 @@ const siteEntries = await getCollection("site");
 const site = siteEntries[0]?.data ?? {
   footerDescription: "A 501(c)(3) non-profit supporting LGBTQ communities through education, advocacy, and connection.",
 };
+
+const pawIcon = `<svg class="w-3.5 h-3.5 opacity-40 shrink-0" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><ellipse cx="16" cy="21" rx="7" ry="6"/><circle cx="9" cy="12" r="3.5"/><circle cx="16" cy="9" r="3.5"/><circle cx="23" cy="12" r="3.5"/><circle cx="6" cy="18" r="2.8"/><circle cx="26" cy="18" r="2.8"/></svg>`;
 ---
 
 <footer
   id="contact"
-  class="w-full py-12 px-4 border-t border-zinc-800 bg-zinc-900/50"
+  class="w-full py-12 px-4 bg-[#0A0908]"
   role="contentinfo"
 >
+  <!-- Pride gradient top border -->
+  <div class="pride-gradient h-px mb-12 opacity-60" aria-hidden="true"></div>
+
   <div class="max-w-6xl mx-auto">
     <div class="grid md:grid-cols-3 gap-8 mb-8">
       <div>
-        <h2 class="text-lg font-semibold text-zinc-50 mb-4">{SITE.title}</h2>
-        <p class="text-zinc-400">
+        <h2 class="text-lg font-semibold text-cream mb-4 font-[var(--font-display)]">{SITE.title}</h2>
+        <p class="text-taupe">
           {site.footerDescription}
         </p>
       </div>
       <div>
-        <h2 class="text-lg font-semibold text-zinc-50 mb-4">Explore</h2>
+        <h2 class="text-lg font-semibold text-cream mb-4 font-[var(--font-display)]">Explore</h2>
         <ul class="space-y-2">
           <li>
-            <a
-              href="/features"
-              class="text-zinc-400 hover:text-rose-400 transition-colors"
-              >What We Do</a
-            >
+            <a href="/features" class="nav-link inline-flex items-center gap-2 text-sm">
+              <svg class="w-3.5 h-3.5 opacity-40 shrink-0" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><ellipse cx="16" cy="21" rx="7" ry="6"/><circle cx="9" cy="12" r="3.5"/><circle cx="16" cy="9" r="3.5"/><circle cx="23" cy="12" r="3.5"/><circle cx="6" cy="18" r="2.8"/><circle cx="26" cy="18" r="2.8"/></svg>
+              What We Do
+            </a>
           </li>
           <li>
-            <a
-              href="/calendar"
-              class="text-zinc-400 hover:text-rose-400 transition-colors"
-              >Calendar</a
-            >
+            <a href="/calendar" class="nav-link inline-flex items-center gap-2 text-sm">
+              <svg class="w-3.5 h-3.5 opacity-40 shrink-0" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><ellipse cx="16" cy="21" rx="7" ry="6"/><circle cx="9" cy="12" r="3.5"/><circle cx="16" cy="9" r="3.5"/><circle cx="23" cy="12" r="3.5"/><circle cx="6" cy="18" r="2.8"/><circle cx="26" cy="18" r="2.8"/></svg>
+              Calendar
+            </a>
           </li>
           <li>
-            <a
-              href="/about"
-              class="text-zinc-400 hover:text-rose-400 transition-colors"
-              >About</a
-            >
+            <a href="/about" class="nav-link inline-flex items-center gap-2 text-sm">
+              <svg class="w-3.5 h-3.5 opacity-40 shrink-0" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><ellipse cx="16" cy="21" rx="7" ry="6"/><circle cx="9" cy="12" r="3.5"/><circle cx="16" cy="9" r="3.5"/><circle cx="23" cy="12" r="3.5"/><circle cx="6" cy="18" r="2.8"/><circle cx="26" cy="18" r="2.8"/></svg>
+              About
+            </a>
           </li>
           <li>
-            <a
-              href="/contact"
-              class="text-zinc-400 hover:text-rose-400 transition-colors"
-              >Contact</a
-            >
+            <a href="/contact" class="nav-link inline-flex items-center gap-2 text-sm">
+              <svg class="w-3.5 h-3.5 opacity-40 shrink-0" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><ellipse cx="16" cy="21" rx="7" ry="6"/><circle cx="9" cy="12" r="3.5"/><circle cx="16" cy="9" r="3.5"/><circle cx="23" cy="12" r="3.5"/><circle cx="6" cy="18" r="2.8"/><circle cx="26" cy="18" r="2.8"/></svg>
+              Contact
+            </a>
           </li>
         </ul>
       </div>
       <div>
-        <h2 class="text-lg font-semibold text-zinc-50 mb-4">Get Involved</h2>
+        <h2 class="text-lg font-semibold text-cream mb-4 font-[var(--font-display)]">Get Involved</h2>
         <ul class="space-y-2">
           <li>
             <a
               href="/contact"
-              class="flex items-center gap-2 text-zinc-400 hover:text-rose-400 transition-colors"
+              class="nav-link inline-flex items-center gap-2 text-sm"
             >
               <Icon name="tabler:mail" class="w-5 h-5" aria-hidden="true" />
-              <span>Contact Us</span></a
-            >
+              <span>Contact Us</span>
+            </a>
           </li>
           <li>
             <a
               href="/contact"
-              class="flex items-center gap-2 text-zinc-400 hover:text-rose-400 transition-colors"
+              class="nav-link inline-flex items-center gap-2 text-sm"
             >
               <Icon name="tabler:heart" class="w-5 h-5" aria-hidden="true" />
-              <span>Volunteer</span></a
-            >
+              <span>Volunteer</span>
+            </a>
           </li>
         </ul>
       </div>
     </div>
-    <div class="pt-8 border-t border-zinc-800 text-center text-zinc-500 text-sm">
+    <div class="pt-8 border-t border-brass/10 text-center text-taupe-dark text-sm">
       <p>&copy; {new Date().getFullYear()} {SITE.title}. A 501(c)(3) non-profit. All rights reserved.</p>
     </div>
   </div>

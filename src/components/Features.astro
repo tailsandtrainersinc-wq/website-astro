@@ -11,8 +11,8 @@ const introCopy = "Our mission is built on education, inclusion, and community s
 
 <section id="features" class="max-w-6xl mx-auto px-4 py-20">
   <ScrollReveal client:idle delay={0.1}>
-    <h2 class="text-4xl font-bold text-zinc-50 text-center mb-4">What We Do</h2>
-    <p class="text-zinc-400 text-center max-w-2xl mx-auto mb-12">
+    <h2 class="font-[var(--font-display)] text-4xl font-bold text-cream text-center mb-4" style="font-size: var(--text-heading)">What We Do</h2>
+    <p class="text-taupe text-center max-w-2xl mx-auto mb-12">
       {introCopy}
     </p>
   </ScrollReveal>
@@ -20,21 +20,14 @@ const introCopy = "Our mission is built on education, inclusion, and community s
     {features.map((entry, i) => {
       const { title, description, icon } = entry.data;
       const delay = 0.2 + i * 0.1;
-      const isGetInvolved = entry.id === "get-involved";
-      const cardClass = isGetInvolved
-        ? "block p-6 bg-zinc-900/80 rounded-xl border border-zinc-800 hover:border-rose-500/50 hover:shadow-lg hover:shadow-rose-500/10 transition-all group"
-        : "block p-6 bg-zinc-900/80 rounded-xl border border-zinc-800 hover:border-zinc-700 hover:shadow-lg hover:shadow-rose-500/5 transition-all group";
-      const iconClass = isGetInvolved
-        ? "w-12 h-12 bg-rose-500/20 rounded-lg flex items-center justify-center mb-4 text-rose-400 group-hover:bg-rose-500/30"
-        : "w-12 h-12 bg-rose-500/20 rounded-lg flex items-center justify-center mb-4 text-rose-400 group-hover:bg-rose-500/30";
       return (
-        <ScrollReveal client:idle delay={delay} scale={true}>
-          <a href={`/features/${entry.id}`} class={cardClass}>
-            <div class={iconClass}>
+        <ScrollReveal client:idle delay={delay} mode="pad">
+          <a href={`/features/${entry.id}`} class="block p-6 bg-leather-raised/80 rounded-xl border border-brass/15 hover:border-brass/40 hover:shadow-lg hover:shadow-brass/10 transition-all group cursor-reactive">
+            <div class="w-12 h-12 bg-brass/15 rounded-lg flex items-center justify-center mb-4 text-brass group-hover:bg-brass/25 transition-colors">
               <Icon name={icon} class="w-6 h-6" aria-hidden="true" />
             </div>
-            <h3 class="text-xl font-semibold text-zinc-50 mb-2">{title}</h3>
-            <p class="text-zinc-400">{description}</p>
+            <h3 class="text-xl font-semibold text-cream mb-2 font-[var(--font-display)]">{title}</h3>
+            <p class="text-taupe">{description}</p>
           </a>
         </ScrollReveal>
       );

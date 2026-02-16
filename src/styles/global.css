@@ -1,35 +1,426 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-/* Dark theme prose for markdown content */
-.prose-invert {
-  --tw-prose-body: theme("colors.zinc.300");
-  --tw-prose-headings: theme("colors.zinc.100");
-  --tw-prose-links: theme("colors.rose.400");
-  --tw-prose-bold: theme("colors.zinc.100");
-  --tw-prose-code: theme("colors.zinc.300");
-  --tw-prose-pre-bg: theme("colors.zinc.800");
-  --tw-prose-quotes: theme("colors.zinc.400");
-  --tw-prose-quote-borders: theme("colors.rose.500/30");
-  --tw-prose-counters: theme("colors.zinc.500");
-  --tw-prose-bullets: theme("colors.zinc.600");
-  --tw-prose-hr: theme("colors.zinc.800");
+@theme {
+  --color-leather-deep: #0D0D0D;
+  --color-leather: #1A1714;
+  --color-leather-raised: #252017;
+  --color-leather-glow: #302A1F;
+  --color-cream: #F5F0E8;
+  --color-taupe: #A89B8C;
+  --color-taupe-dark: #6B5F52;
+  --color-brass: #C9A84C;
+  --color-oxblood: #8B2530;
+  --color-brass-bright: #D4A843;
 }
 
-/* Smooth scrolling */
+/* ============================================
+   Design System: "Classy Pup"
+   Leather & Brass — Refined Playfulness
+   ============================================ */
+
+:root {
+  /* Surface colors — leather-inspired warm browns */
+  --surface-deep: #0D0D0D;
+  --surface-mid: #1A1714;
+  --surface-raised: #252017;
+  --surface-glow: #302A1F;
+
+  /* Text — warm cream and taupe */
+  --text-primary: #F5F0E8;
+  --text-secondary: #A89B8C;
+  --text-tertiary: #6B5F52;
+
+  /* Accents — brass, oxblood, gold */
+  --accent-gold: #C9A84C;
+  --accent-red: #8B2530;
+  --accent-interactive: #D4A843;
+
+  /* Cursor position (set by JS) */
+  --cursor-x: 50%;
+  --cursor-y: 50%;
+
+  /* Typography */
+  --font-display: "Epilogue", sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --text-hero: clamp(3.5rem, 8vw + 1rem, 9rem);
+  --text-display: clamp(2.5rem, 5vw + 1rem, 6rem);
+  --text-heading: clamp(1.75rem, 3vw + 0.5rem, 3.5rem);
+  --text-subhead: clamp(1.25rem, 2vw + 0.25rem, 2rem);
+  --text-body: clamp(1rem, 0.5vw + 0.875rem, 1.125rem);
+
+  /* Spacing */
+  --space-section: clamp(4rem, 8vh, 10rem);
+}
+
+/* ============================================
+   Custom Paw Cursor
+   ============================================ */
+
+body {
+  cursor: url('/cursors/paw.svg') 16 16, auto;
+}
+
+a, button, [role="button"], input[type="submit"], select, .cursor-pointer {
+  cursor: url('/cursors/paw-pointer.svg') 12 12, pointer;
+}
+
+/* ============================================
+   Base Styles
+   ============================================ */
+
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Better selection color */
-::selection {
-  background: theme("colors.rose.500/30");
-  color: theme("colors.zinc.50");
+body {
+  font-family: var(--font-sans);
+  background: var(--surface-deep);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
 }
 
-/* Accessibility: Skip to content link */
+::selection {
+  background: #C9A84C40;
+  color: var(--text-primary);
+}
+
+/* ============================================
+   Leather Grain Texture Overlay
+   ============================================ */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.35' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 512px 512px;
+  mix-blend-mode: soft-light;
+}
+
+/* ============================================
+   Warm Ambient Background
+   ============================================ */
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 40% 40%, #1A1714 0%, #0D0D0D 70%);
+}
+
+/* ============================================
+   Pride Gradient Strip
+   ============================================ */
+
+.pride-gradient {
+  background: linear-gradient(90deg, #E40303, #FF8C00, #FFED00, #008026, #004DFF, #750787);
+}
+
+/* ============================================
+   Cursor Reactive Glow
+   ============================================ */
+
+.cursor-reactive {
+  position: relative;
+}
+
+.cursor-reactive::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    400px circle at var(--cursor-x) var(--cursor-y),
+    #C9A84C10,
+    transparent
+  );
+  pointer-events: none;
+  z-index: 0;
+  transition: opacity 0.3s;
+  opacity: 0;
+}
+
+.cursor-reactive:hover::before {
+  opacity: 1;
+}
+
+/* ============================================
+   Button Styles
+   ============================================ */
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  background: linear-gradient(135deg, #C9A84C, #D4A843);
+  color: var(--surface-deep);
+  font-weight: 700;
+  border-radius: 9999px;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  text-decoration: none;
+  border: none;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px #C9A84C40;
+}
+
+.btn-primary:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  background: var(--surface-raised);
+  color: var(--text-primary);
+  font-weight: 600;
+  border-radius: 9999px;
+  border: 1px solid #C9A84C30;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  background: var(--surface-glow);
+  border-color: #C9A84C50;
+  transform: translateY(-2px);
+}
+
+/* Wag animation on hover */
+.btn-wag:hover {
+  animation: wag 0.3s ease-in-out 2;
+}
+
+/* ============================================
+   Navigation Link Styles
+   ============================================ */
+
+.nav-link {
+  position: relative;
+  color: var(--text-secondary);
+  transition: color 0.3s;
+  text-decoration: none;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-bottom: 1px dashed var(--accent-gold);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateX(-50%);
+}
+
+.nav-link:hover {
+  color: var(--accent-gold);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link[aria-current="page"] {
+  color: var(--accent-gold);
+}
+
+.nav-link[aria-current="page"]::after {
+  width: 6px;
+  height: 6px;
+  border: none;
+  border-radius: 50%;
+  bottom: -8px;
+  background: var(--accent-gold);
+}
+
+/* ============================================
+   Form Field Styles
+   ============================================ */
+
+.field-underline {
+  border: none;
+  border-bottom: 2px solid var(--text-tertiary);
+  border-radius: 0;
+  background: transparent;
+  padding: 0.75rem 0;
+  color: var(--text-primary);
+  font-size: var(--text-body);
+  width: 100%;
+  transition: border-color 0.3s;
+}
+
+.field-underline:focus {
+  border-bottom-color: var(--accent-gold);
+  outline: none;
+  box-shadow: 0 2px 0 0 var(--accent-gold);
+}
+
+.field-underline::placeholder {
+  color: transparent;
+}
+
+textarea.field-underline {
+  border: 1px solid var(--text-tertiary);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  background: transparent;
+  min-height: 150px;
+  resize: vertical;
+}
+
+textarea.field-underline:focus {
+  border-color: var(--accent-gold);
+  outline: none;
+  box-shadow: 0 0 0 1px var(--accent-gold);
+}
+
+.field-underline[aria-invalid="true"] {
+  border-bottom-color: var(--accent-red);
+  box-shadow: 0 2px 0 0 var(--accent-red);
+}
+
+textarea.field-underline[aria-invalid="true"] {
+  border-color: var(--accent-red);
+  box-shadow: 0 0 0 1px var(--accent-red);
+}
+
+.field-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.field-label {
+  position: absolute;
+  left: 0;
+  top: 0.75rem;
+  color: var(--text-tertiary);
+  font-size: var(--text-body);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  transform-origin: left;
+}
+
+.field-underline:focus ~ .field-label,
+.field-underline:not(:placeholder-shown) ~ .field-label {
+  top: -0.75rem;
+  font-size: 0.75rem;
+  color: var(--accent-gold);
+}
+
+/* ============================================
+   Keyframe Animations
+   ============================================ */
+
+/* Wag — tail-wag rotation oscillation */
+@keyframes wag {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(3deg); }
+  75% { transform: rotate(-3deg); }
+}
+
+/* Float up — for rising paw bubbles */
+@keyframes float-up {
+  0% { transform: translateY(0) rotate(var(--float-rotation, 0deg)); opacity: var(--float-opacity, 0.05); }
+  100% { transform: translateY(-120vh) rotate(var(--float-rotation, 0deg)); opacity: 0; }
+}
+
+/* Float drift — for floating decorations */
+@keyframes float-drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(10px, -15px) rotate(3deg); }
+  50% { transform: translate(-5px, -25px) rotate(-2deg); }
+  75% { transform: translate(-15px, -10px) rotate(4deg); }
+}
+
+/* Paw stamp — decorative paw appears */
+@keyframes paw-stamp {
+  0% { transform: scale(0) rotate(-10deg); opacity: 0; }
+  60% { transform: scale(1.15) rotate(2deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+/* Heartbeat glow — gold pulse */
+@keyframes heartbeat-glow {
+  0%, 100% { box-shadow: 0 0 20px #C9A84C20; }
+  50% { box-shadow: 0 0 40px #C9A84C40; }
+}
+
+.heartbeat-glow {
+  animation: heartbeat-glow 3s ease-in-out infinite;
+}
+
+/* Icon bounce on card hover */
+@keyframes icon-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* Scroll indicator */
+@keyframes scroll-hint {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(8px); opacity: 1; }
+}
+
+.scroll-hint {
+  animation: scroll-hint 2s ease-in-out infinite;
+}
+
+/* Bark vibration (easter egg) */
+@keyframes bark-vibrate {
+  0%, 100% { transform: translateX(0); }
+  10% { transform: translateX(-2px) rotate(-0.5deg); }
+  20% { transform: translateX(2px) rotate(0.5deg); }
+  30% { transform: translateX(-2px) rotate(-0.5deg); }
+  40% { transform: translateX(2px) rotate(0.5deg); }
+  50% { transform: translateX(-1px); }
+  60% { transform: translateX(1px); }
+}
+
+.bark-active {
+  animation: bark-vibrate 0.5s ease-out;
+}
+
+/* ============================================
+   Prose (Markdown Content) — Dark Theme
+   ============================================ */
+
+.prose-invert {
+  --tw-prose-body: var(--text-secondary);
+  --tw-prose-headings: var(--text-primary);
+  --tw-prose-links: var(--accent-gold);
+  --tw-prose-bold: var(--text-primary);
+  --tw-prose-code: var(--text-secondary);
+  --tw-prose-pre-bg: var(--surface-raised);
+  --tw-prose-quotes: var(--text-secondary);
+  --tw-prose-quote-borders: #C9A84C40;
+  --tw-prose-counters: var(--text-tertiary);
+  --tw-prose-bullets: var(--text-tertiary);
+  --tw-prose-hr: #252017;
+}
+
+/* ============================================
+   Skip to Content (Accessibility)
+   ============================================ */
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -51,9 +442,18 @@ html {
   overflow: visible;
   clip: auto;
   white-space: normal;
+  z-index: 10000;
+  background: var(--accent-gold);
+  color: var(--surface-deep);
+  border-radius: 0.5rem;
+  top: 1.5rem;
+  left: 1rem;
 }
 
-/* Line-clamp utility */
+/* ============================================
+   Utilities
+   ============================================ */
+
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -61,7 +461,31 @@ html {
   overflow: hidden;
 }
 
-/* TipTap WYSIWYG editor */
+/* ============================================
+   Reduced Motion
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    display: none;
+  }
+
+  .scroll-hint,
+  .heartbeat-glow,
+  .btn-wag:hover {
+    animation: none !important;
+  }
+
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================
+   TipTap Admin Editor (unchanged)
+   ============================================ */
+
 .tiptap {
   outline: none;
   min-height: 180px;
@@ -70,7 +494,7 @@ html {
 .tiptap p.is-editor-empty:first-child::before {
   content: "Start writing...";
   float: left;
-  color: theme("colors.zinc.500");
+  color: var(--text-tertiary);
   pointer-events: none;
   height: 0;
 }

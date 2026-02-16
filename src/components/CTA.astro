@@ -10,24 +10,37 @@ const site = siteEntries[0]?.data ?? {
 };
 ---
 
-<section id="about" class="max-w-6xl mx-auto px-4 py-20">
+<section id="about" class="relative max-w-6xl mx-auto px-4 py-20">
+  <!-- Decorative paw prints -->
+  <div class="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+    <svg class="absolute top-12 left-8 w-8 h-8 text-brass opacity-[0.04] rotate-[-15deg]" viewBox="0 0 32 32" fill="currentColor">
+      <ellipse cx="16" cy="21" rx="7" ry="6"/><circle cx="9" cy="12" r="3.5"/><circle cx="16" cy="9" r="3.5"/><circle cx="23" cy="12" r="3.5"/><circle cx="6" cy="18" r="2.8"/><circle cx="26" cy="18" r="2.8"/>
+    </svg>
+    <svg class="absolute bottom-16 right-12 w-10 h-10 text-brass opacity-[0.03] rotate-[20deg]" viewBox="0 0 32 32" fill="currentColor">
+      <ellipse cx="16" cy="21" rx="7" ry="6"/><circle cx="9" cy="12" r="3.5"/><circle cx="16" cy="9" r="3.5"/><circle cx="23" cy="12" r="3.5"/><circle cx="6" cy="18" r="2.8"/><circle cx="26" cy="18" r="2.8"/>
+    </svg>
+    <svg class="absolute top-1/2 right-1/4 w-6 h-6 text-brass opacity-[0.03] rotate-[45deg]" viewBox="0 0 32 32" fill="currentColor">
+      <ellipse cx="16" cy="21" rx="7" ry="6"/><circle cx="9" cy="12" r="3.5"/><circle cx="16" cy="9" r="3.5"/><circle cx="23" cy="12" r="3.5"/><circle cx="6" cy="18" r="2.8"/><circle cx="26" cy="18" r="2.8"/>
+    </svg>
+  </div>
+
   <ScrollReveal client:idle scale={true}>
-    <div class="bg-gradient-to-br from-zinc-800 to-zinc-900 rounded-2xl p-6 md:p-12 text-center border border-zinc-700">
-      <h2 class="text-4xl font-bold text-zinc-50 mb-4">{site.ctaTitle}</h2>
-      <p class="text-xl text-zinc-400 mb-8 max-w-2xl mx-auto">
+    <div class="relative bg-gradient-to-br from-leather-raised to-leather rounded-2xl p-6 md:p-12 text-center border border-brass/20">
+      <h2 class="font-[var(--font-display)] text-4xl font-bold text-cream mb-4" style="font-size: var(--text-heading)">{site.ctaTitle}</h2>
+      <p class="text-lg text-taupe mb-8 max-w-2xl mx-auto">
         {site.ctaBody}
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a
           href="/contact"
-          class="inline-flex items-center justify-center gap-2 px-8 py-3 bg-rose-500 text-white rounded-lg hover:bg-rose-600 transition-colors font-medium"
+          class="btn-primary btn-wag heartbeat-glow"
         >
           <Icon name="tabler:heart" class="w-5 h-5" aria-hidden="true" />
           Get Involved
         </a>
         <a
           href="/contact"
-          class="inline-flex items-center justify-center gap-2 px-8 py-3 bg-zinc-700 text-zinc-100 border border-zinc-600 rounded-lg hover:bg-zinc-600 transition-colors font-medium"
+          class="btn-secondary"
         >
           <Icon name="tabler:mail" class="w-5 h-5" aria-hidden="true" />
           Contact Us
@@ -35,4 +48,7 @@ const site = siteEntries[0]?.data ?? {
       </div>
     </div>
   </ScrollReveal>
+
+  <!-- Pride gradient divider -->
+  <div class="mt-16 h-px pride-gradient opacity-40" aria-hidden="true"></div>
 </section>

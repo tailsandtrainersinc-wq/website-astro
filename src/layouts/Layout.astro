@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import { SITE } from '../config/site.mjs';
 import type { SEOProps } from '../types/seo';
+import PawTrail from '../components/PawTrail.tsx';
 
 interface Props extends SEOProps {
   lang?: string;
@@ -24,12 +25,10 @@ const {
   lang = SITE.defaultLanguage,
 } = Astro.props;
 
-// Construct full URLs
 const currentPath = Astro.url.pathname;
 const canonicalPath = canonicalURL || currentPath;
 const siteURL = new URL(canonicalPath, SITE.url);
 
-// Handle image URLs - support both absolute URLs and relative paths
 const getFullImageUrl = (image: string): string => {
   if (image.startsWith('http://') || image.startsWith('https://')) {
     return image;
@@ -40,7 +39,6 @@ const getFullImageUrl = (image: string): string => {
 const fullOgImage = getFullImageUrl(ogImage);
 const fullTwitterImage = getFullImageUrl(twitterImage);
 
-// Build robots meta content
 const robotsContent = [
   noindex ? 'noindex' : 'index',
   nofollow ? 'nofollow' : 'follow',
@@ -54,21 +52,21 @@ const robotsContent = [
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		
-		<!-- Resource Hints -->
+
+		<!-- Fonts: Epilogue (display) + Inter (body) -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-		
-		<!-- Preload Critical Resources -->
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
+
 		<link rel="preload" href="/favicon.svg" as="image" type="image/svg+xml" />
-		
+
 		<!-- Primary Meta Tags -->
 		<title>{title}</title>
 		<meta name="title" content={title} />
 		<meta name="description" content={description} />
 		<meta name="robots" content={robotsContent} />
 		<link rel="canonical" href={siteURL.href} />
-		
+
 		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content={ogType} />
 		<meta property="og:url" content={siteURL.href} />
@@ -76,7 +74,7 @@ const robotsContent = [
 		<meta property="og:description" content={ogDescription} />
 		<meta property="og:image" content={fullOgImage} />
 		<meta property="og:site_name" content={SITE.title} />
-		
+
 		<!-- Twitter -->
 		<meta name="twitter:card" content={twitterCard} />
 		<meta name="twitter:url" content={siteURL.href} />
@@ -84,13 +82,36 @@ const robotsContent = [
 		<meta name="twitter:description" content={twitterDescription} />
 		<meta name="twitter:image" content={fullTwitterImage} />
 	</head>
-	<body class="min-h-screen bg-zinc-950 text-zinc-100 antialiased">
-		<a
-			href="#main-content"
-			class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-rose-500 focus:text-white focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-950 focus:ring-rose-500"
-		>
+	<body class="min-h-screen antialiased">
+		<!-- Pride gradient strip — always visible at top -->
+		<div class="fixed top-0 left-0 right-0 h-1 z-[100] pride-gradient" aria-hidden="true"></div>
+
+		<!-- Skip to content -->
+		<a href="#main-content" class="sr-only">
 			Skip to main content
 		</a>
+
+		<!-- Paw trail (desktop only, React island) -->
+		<PawTrail client:load />
+
 		<slot />
+
+		<!-- Cursor glow tracking -->
+		<script>
+			if (window.matchMedia('(pointer: fine)').matches) {
+				const root = document.documentElement;
+				let ticking = false;
+				document.addEventListener('mousemove', (e) => {
+					if (!ticking) {
+						requestAnimationFrame(() => {
+							root.style.setProperty('--cursor-x', e.clientX + 'px');
+							root.style.setProperty('--cursor-y', e.clientY + 'px');
+							ticking = false;
+						});
+						ticking = true;
+					}
+				});
+			}
+		</script>
 	</body>
 </html>

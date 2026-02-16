@@ -10,7 +10,7 @@ const formConfigured = useGoogleSheets || useWeb3Forms;
 
 <form
   id="contact-form"
-  class="space-y-6"
+  class="space-y-8"
   aria-label="Contact form"
   novalidate
   action={useWeb3Forms ? "https://api.web3forms.com/submit" : "#"}
@@ -27,68 +27,71 @@ const formConfigured = useGoogleSheets || useWeb3Forms;
   )}
   <!-- Honeypot spam protection -->
   <input type="checkbox" name="botcheck" class="hidden" style="display: none;" tabindex="-1" autocomplete="off" />
+
   <!-- Success Message -->
   <div
     id="success-message"
-    class="hidden p-4 bg-emerald-500/20 border border-emerald-500/40 rounded-lg text-emerald-200"
+    class="hidden p-4 bg-emerald-500/15 border border-emerald-500/30 rounded-lg text-emerald-300"
     role="alert"
     aria-live="polite"
   >
     <p class="font-medium">Thank you for your message!</p>
-    <p class="text-sm mt-1">We'll get back to you soon.</p>
+    <p class="text-sm mt-1 opacity-80">We'll get back to you soon.</p>
   </div>
 
   <!-- Error Message -->
   <div
     id="error-message"
-    class="hidden p-4 bg-red-500/20 border border-red-500/40 rounded-lg text-red-200"
+    class="hidden p-4 bg-oxblood/20 border border-oxblood/40 rounded-lg text-[#E8A0A0]"
     role="alert"
     aria-live="assertive"
   >
     <p class="font-medium" id="error-text"></p>
   </div>
 
-  <!-- Name Field -->
-  <div>
-    <label for="name" class="block text-sm font-medium text-zinc-300 mb-2">
-      Name <span class="text-rose-400" aria-label="required">*</span>
-    </label>
+  <!-- Name Field (floating label) -->
+  <div class="field-group">
     <input
       type="text"
       id="name"
       name="from_name"
-      class="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg text-zinc-100 placeholder-zinc-500 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none transition-colors"
+      class="field-underline"
       required
       aria-required="true"
       aria-describedby="name-error"
       autocomplete="name"
+      placeholder=" "
     />
+    <label for="name" class="field-label">
+      Name <span class="text-brass" aria-label="required">*</span>
+    </label>
     <span
       id="name-error"
-      class="mt-1 text-sm text-rose-400 hidden"
+      class="mt-1 text-sm text-oxblood hidden"
       role="alert"
       aria-live="polite"
     ></span>
   </div>
 
-  <!-- Email Field -->
-  <div>
-    <label for="email" class="block text-sm font-medium text-zinc-300 mb-2">
-      Email <span class="text-rose-400" aria-label="required">*</span>
-    </label>
+  <!-- Email Field (floating label) -->
+  <div class="field-group">
     <input
       type="email"
       id="email"
       name="from_email"
-      class="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg text-zinc-100 placeholder-zinc-500 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none transition-colors"
+      class="field-underline"
       required
       aria-required="true"
       aria-describedby="email-error"
       autocomplete="email"
+      placeholder=" "
     />
+    <label for="email" class="field-label">
+      Email <span class="text-brass" aria-label="required">*</span>
+    </label>
     <span
       id="email-error"
-      class="mt-1 text-sm text-rose-400 hidden"
+      class="mt-1 text-sm text-oxblood hidden"
       role="alert"
       aria-live="polite"
     ></span>
@@ -96,21 +99,21 @@ const formConfigured = useGoogleSheets || useWeb3Forms;
 
   <!-- Message Field -->
   <div>
-    <label for="message" class="block text-sm font-medium text-zinc-300 mb-2">
-      Message <span class="text-rose-400" aria-label="required">*</span>
+    <label for="message" class="block text-sm font-medium text-taupe mb-2">
+      Message <span class="text-brass" aria-label="required">*</span>
     </label>
     <textarea
       id="message"
       name="message"
       rows="6"
-      class="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg text-zinc-100 placeholder-zinc-500 focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none transition-colors resize-none"
+      class="field-underline"
       required
       aria-required="true"
       aria-describedby="message-error"
     ></textarea>
     <span
       id="message-error"
-      class="mt-1 text-sm text-rose-400 hidden"
+      class="mt-1 text-sm text-oxblood hidden"
       role="alert"
       aria-live="polite"
     ></span>
@@ -120,7 +123,7 @@ const formConfigured = useGoogleSheets || useWeb3Forms;
   <button
     type="submit"
     id="submit-button"
-    class="w-full px-6 py-3 bg-rose-500 text-white rounded-lg hover:bg-rose-600 transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-950 focus:ring-rose-500 disabled:opacity-50 disabled:cursor-not-allowed"
+    class="btn-primary btn-wag w-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-leather-deep focus:ring-brass disabled:opacity-50 disabled:cursor-not-allowed"
   >
     <span id="submit-text">Send Message</span>
     <span id="submit-loading" class="hidden">Sending...</span>
@@ -136,7 +139,6 @@ const formConfigured = useGoogleSheets || useWeb3Forms;
   const errorMessage = document.getElementById("error-message") as HTMLDivElement;
   const errorText = document.getElementById("error-text") as HTMLParagraphElement;
 
-  // Field elements
   const nameInput = document.getElementById("name") as HTMLInputElement;
   const emailInput = document.getElementById("email") as HTMLInputElement;
   const messageInput = document.getElementById("message") as HTMLTextAreaElement;
@@ -144,7 +146,6 @@ const formConfigured = useGoogleSheets || useWeb3Forms;
   const emailError = document.getElementById("email-error") as HTMLSpanElement;
   const messageError = document.getElementById("message-error") as HTMLSpanElement;
 
-  // Validation functions
   function validateEmail(email: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
@@ -152,14 +153,12 @@ const formConfigured = useGoogleSheets || useWeb3Forms;
 
   function showFieldError(field: HTMLInputElement | HTMLTextAreaElement, errorElement: HTMLSpanElement, message: string) {
     field.setAttribute("aria-invalid", "true");
-    field.classList.add("border-rose-500");
     errorElement.textContent = message;
     errorElement.classList.remove("hidden");
   }
 
   function clearFieldError(field: HTMLInputElement | HTMLTextAreaElement, errorElement: HTMLSpanElement) {
     field.setAttribute("aria-invalid", "false");
-    field.classList.remove("border-rose-500");
     errorElement.classList.add("hidden");
     errorElement.textContent = "";
   }
@@ -180,7 +179,6 @@ const formConfigured = useGoogleSheets || useWeb3Forms;
     }
   }
 
-  // Real-time validation
   nameInput.addEventListener("blur", () => {
     const value = nameInput.value.trim();
     if (!value) {
@@ -214,7 +212,6 @@ const formConfigured = useGoogleSheets || useWeb3Forms;
     }
   });
 
-  // Form backend: Google Sheets (Apps Script) or Web3Forms — set in src/config/site.mjs
   const googleSheetsUrl = form.dataset.googleSheetsUrl?.trim() || "";
   const hasGoogleSheets = googleSheetsUrl.length > 0;
   const hasWeb3Forms = (form.querySelector('input[name="access_key"]') as HTMLInputElement)?.value?.trim()?.length > 0;
@@ -222,15 +219,14 @@ const formConfigured = useGoogleSheets || useWeb3Forms;
 
   if (!formConfigured) {
     const warningDiv = document.createElement("div");
-    warningDiv.className = "p-4 bg-amber-500/20 border border-amber-500/40 rounded-lg text-amber-200 text-sm";
+    warningDiv.className = "p-4 bg-brass/15 border border-brass/30 rounded-lg text-brass text-sm";
     warningDiv.innerHTML = `
-      <p class="font-medium mb-1">⚠️ Form not configured</p>
-      <p>Add either <strong>Google Sheets</strong> (see <code class="bg-zinc-800 px-1 rounded">docs/google-sheets-form-setup.md</code>) or a <strong>Web3Forms</strong> access key in <code class="bg-zinc-800 px-1 rounded">src/config/site.mjs</code>.</p>
+      <p class="font-medium mb-1">Form not configured</p>
+      <p class="text-taupe">Add either <strong>Google Sheets</strong> (see <code class="bg-leather-raised px-1 rounded">docs/google-sheets-form-setup.md</code>) or a <strong>Web3Forms</strong> access key in <code class="bg-leather-raised px-1 rounded">src/config/site.mjs</code>.</p>
     `;
     form.insertBefore(warningDiv, form.firstChild);
   }
 
-  // Form submission
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     hideAllMessages();
@@ -242,12 +238,10 @@ const formConfigured = useGoogleSheets || useWeb3Forms;
       return;
     }
 
-    // Clear previous errors
     clearFieldError(nameInput, nameError);
     clearFieldError(emailInput, emailError);
     clearFieldError(messageInput, messageError);
 
-    // Validate all fields
     let isValid = true;
 
     if (!nameInput.value.trim()) {
@@ -272,7 +266,6 @@ const formConfigured = useGoogleSheets || useWeb3Forms;
     }
 
     if (!isValid) {
-      // Focus first error field
       const firstError = form.querySelector('[aria-invalid="true"]') as HTMLElement;
       if (firstError) {
         firstError.focus();
